@@ -36,39 +36,3 @@
     width: 100%;
   }
   
-  .cuentas-button {
-    background-color: #00bcd4;
-    color: white;
-    border: none;
-    padding: 15px; /* Aumentamos el padding de los botones */
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px; /* Aumentamos el tamaño del texto en los botones */
-    font-weight: bold;
-    transition: background 0.3s ease;
-  }
-  
-  .cuentas-button:hover {
-    background-color: #008ba3;
-  }
-  
-  /* Estilos para los inputs de transferencia */
-  input {
-    padding: 12px; /* Aumentamos el padding de los inputs */
-    border-radius: 5px;
-    margin-bottom: 15px; /* Aumentamos el margen entre los inputs */
-    border: 1px solid #ddd;
-    font-size: 18px; /* Aumentamos el tamaño del texto en los inputs */
-    width: 100%;
-  }
-  
-  input[type="text"], input[type="number"] {
-    background-color: #121212;
-    color: white;
-  }
-  
-  input:focus {
-    outline: none;
-    border-color: #00bcd4;
-  }
-  

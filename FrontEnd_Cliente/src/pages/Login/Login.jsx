@@ -1,8 +1,15 @@
+// React
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Login.css"; // Asegúrate de tener este archivo de estilos
 
-const Login = () => {
+// Components
+import TextInput from "../../components/TextInput/TextInput";
+import Button from "../../components/Button/Button"
+
+// Styling
+import "./Login.css"; // Asegúrate de tener este archivo de estilos
+
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -13,7 +20,7 @@ const Login = () => {
     
     // Aquí puedes agregar la lógica de autenticación
     // Por ahora, simplemente redirige al dashboard
-    navigate("/dashboard");
+    navigate("/dashboard", {state:{username: username}});
   };
 
   return (
@@ -23,25 +30,31 @@ const Login = () => {
         <p>Inicia sesión para acceder a tu cuenta</p>
 
         <form onSubmit={handleLogin}>
-          <input
+          <TextInput
+            className="text-input-standard"
             type="text"
             placeholder="Usuario"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <input
+          <TextInput
+            className="text-input-standard"
             type="password"
             placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Ingresar</button>
+          <Button
+            className="button-standard"
+            type="submit"
+            text="Ingresar"
+          />
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default Login;
