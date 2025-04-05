@@ -1,21 +1,21 @@
 .text-input-standard {
   width: 90%;
   padding: 10px;
-  border: 2px solid transparent;
+  border: 3px solid;
   outline: none;
   border-radius: 10px;
   font-size: 20px;
-  color: white;
-  background: #121212;
-  text-align: center;
+  color: var(--color-text);
+  background: var(--color-background);
+  text-align: left;
   transition: all 0.3s;
 }
 
 .text-input-standard::placeholder {
-  color: #bbb;
+  color: color-mix(in srgb, var(--color-text) 50%, var(--color-background) 50%);
 }
   
 .text-input-standard:focus{
-  border: 2px solid #007BFF;
+  border: 3px solid var(--color-primary);
 }
   

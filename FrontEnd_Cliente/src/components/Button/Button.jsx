@@ -3,7 +3,7 @@
 // Components
 
 // Styling
-import "./Button.css"
+import "./Button.css";
 
 function Button(props) {
     return <button {...props}>{props.text}</button>;

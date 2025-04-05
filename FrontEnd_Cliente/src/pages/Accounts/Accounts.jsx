@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 // Components
-import Button from "../../components/Button/Button"
+import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
 
 // Styling
@@ -28,7 +28,7 @@ function Accounts() {
     <div className="cuentas-container">
       <h2>Cuentas</h2>
       <Button
-        className="button-standard"
+        className="button-primary"
         onClick={viewTransactions}
         text="Ver movimientos"
       />
@@ -59,7 +59,7 @@ function Accounts() {
           required
         />
         <Button
-          className="button-standard"
+          className="button-primary"
           type="submit"
           text="Transferir"
         />

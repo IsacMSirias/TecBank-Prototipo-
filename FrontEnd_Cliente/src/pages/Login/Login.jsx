@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 // Components
 import TextInput from "../../components/TextInput/TextInput";
-import Button from "../../components/Button/Button"
+import Button from "../../components/Button/Button";
 
 // Styling
-import "./Login.css"; // Asegúrate de tener este archivo de estilos
+import "./Login.css";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -18,9 +18,8 @@ function Login() {
     e.preventDefault();
     console.log("Usuario:", username, "Contraseña:", password);
     
-    // Aquí puedes agregar la lógica de autenticación
     // Por ahora, simplemente redirige al dashboard
-    navigate("/dashboard", {state:{username: username}});
+    navigate("/dashboard/inicio", {state:{username: username}});
   };
 
   return (
@@ -47,7 +46,7 @@ function Login() {
             required
           />
           <Button
-            className="button-standard"
+            className="button-primary"
             type="submit"
             text="Ingresar"
           />

@@ -1,0 +1,6 @@
+.container-standard {
+  display: flex;
+  padding-top: 4rem;
+  width: 100%;
+  justify-content: center;  
+}

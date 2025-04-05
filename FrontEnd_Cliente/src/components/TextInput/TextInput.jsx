@@ -3,7 +3,7 @@
 // Components
 
 // Styling
-import './TextInput.css'
+import './TextInput.css';
 
 function TextInput (props) {
   return (

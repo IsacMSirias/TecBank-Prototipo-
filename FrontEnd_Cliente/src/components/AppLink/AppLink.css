@@ -1,12 +1,14 @@
-
 .app-link-basic{
-    color: #00bcd4;
-    text-decoration: none;
-    font-size: 18px;
-    display: block;
-    transition: color, transform 0.3s;
+  font-weight: bold;
+  width: 100%;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  transition: all 0.3s;
 }
   
 .app-link-basic:hover {
-    color: #008ba3;
+  color: color-mix(in srgb, var(--color-primary) 80%, var(--color-text) 20%);
+  text-decoration: underline;
 }
