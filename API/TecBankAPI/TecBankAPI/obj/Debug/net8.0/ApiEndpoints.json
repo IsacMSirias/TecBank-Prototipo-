@@ -1,0 +1,60 @@
+[
+  {
+    "ContainingType": "TecBankAPI.Controllers.BankConsultController",
+    "Method": "CreateEdit",
+    "RelativePath": "api/BankConsult",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "consult",
+        "Type": "TecBankAPI.Models.BankConsult",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.BankConsultController",
+    "Method": "Get",
+    "RelativePath": "api/BankConsult",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.BankConsultController",
+    "Method": "Delete",
+    "RelativePath": "api/BankConsult",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.BankConsultController",
+    "Method": "GetAll",
+    "RelativePath": "GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
