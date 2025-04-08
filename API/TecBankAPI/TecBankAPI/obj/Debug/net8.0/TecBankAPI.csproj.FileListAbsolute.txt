@@ -47,3 +47,4 @@ C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBank
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\TecBankDB.txt

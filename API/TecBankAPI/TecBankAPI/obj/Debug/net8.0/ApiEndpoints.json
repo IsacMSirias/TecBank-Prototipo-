@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "TecBankAPI.Controllers.BankConsultController",
+    "ContainingType": "TecBankAPI.Controllers.DataController",
     "Method": "CreateEdit",
-    "RelativePath": "api/BankConsult",
+    "RelativePath": "api/Data",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -16,9 +16,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TecBankAPI.Controllers.BankConsultController",
+    "ContainingType": "TecBankAPI.Controllers.DataController",
     "Method": "Get",
-    "RelativePath": "api/BankConsult",
+    "RelativePath": "api/Data",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -32,9 +32,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TecBankAPI.Controllers.BankConsultController",
+    "ContainingType": "TecBankAPI.Controllers.DataController",
     "Method": "Delete",
-    "RelativePath": "api/BankConsult",
+    "RelativePath": "api/Data",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -48,7 +48,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TecBankAPI.Controllers.BankConsultController",
+    "ContainingType": "TecBankAPI.Controllers.DataController",
     "Method": "GetAll",
     "RelativePath": "GetAll",
     "HttpMethod": "GET",

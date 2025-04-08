@@ -5,10 +5,10 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/BankConsult": {
+    "/api/Data": {
       "post": {
         "tags": [
-          "BankConsult"
+          "Data"
         ],
         "requestBody": {
           "content": {
@@ -37,7 +37,7 @@
       },
       "get": {
         "tags": [
-          "BankConsult"
+          "Data"
         ],
         "parameters": [
           {
@@ -57,7 +57,7 @@
       },
       "delete": {
         "tags": [
-          "BankConsult"
+          "Data"
         ],
         "parameters": [
           {
@@ -79,7 +79,7 @@
     "/GetAll": {
       "get": {
         "tags": [
-          "BankConsult"
+          "Data"
         ],
         "responses": {
           "200": {

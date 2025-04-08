@@ -1,78 +1,93 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TecBankAPI.Models;
-using TecBankAPI.Data;
+using TecBankAPI.Services;
+using System.Linq;
 
 namespace TecBankAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BankConsultController : ControllerBase
+    public class DataController : ControllerBase
     {
-        private readonly ApiContext _context;
-        public BankConsultController(ApiContext context)
+        private readonly FileDataService _context;
+
+        public DataController(FileDataService fileDataService)
         {
-            _context = context;
+            _context = fileDataService;
         }
 
-        //Create/Edit
+        // Create/Edit
         [HttpPost]
-        public JsonResult CreateEdit(BankConsult consult) {
+        public JsonResult CreateEdit(BankConsult consult)
+        {
+            var consults = _context.getDataFromFile();
+
             if (consult.Id == 0)
             {
-                _context.consults.Add(consult);
+                
+                if (consults.Count > 0)
+                {
+                    consult.Id = consults.Max(c => c.Id) + 1; 
+                }
+                else
+                {
+                    consult.Id = 1; 
+                }
+                consults.Add(consult);
             }
-            else {
-                var consultInDb = _context.consults.Find(consult.Id);
-
-                if (consultInDb == null) 
+            else
+            {
+                var consultInDb = consults.FirstOrDefault(c => c.Id == consult.Id);
+                if (consultInDb == null)
                     return new JsonResult(NotFound());
 
-                consultInDb = consult;
-                
+                var index = consults.IndexOf(consultInDb);
+                consults[index] = consult;
             }
 
-            _context.SaveChanges();
+            _context.saveDataToFile(consults);
 
             return new JsonResult(Ok(consult));
-        
         }
 
-        //Get
+
+        // Get 
         [HttpGet]
-        public JsonResult Get(int id) { 
-        var result = _context.consults.Find(id);
+        public JsonResult Get(int id)
+        {
+            var result = _context.getDataFromFile().FirstOrDefault(c => c.Id == id);
 
             if (result == null)
-
                 return new JsonResult(NotFound());
 
             return new JsonResult(Ok(result));
-        
         }
 
-        //Delete
+        // Delete
         [HttpDelete]
-        public JsonResult Delete(int id) {
+        public JsonResult Delete(int id)
+        {
+            var consults = _context.getDataFromFile();
+            var result = consults.FirstOrDefault(c => c.Id == id);
 
-            var result = _context.consults.Find(id);
-
-            if ( result == null)
+            if (result == null)
                 return new JsonResult(NotFound());
 
-            _context.consults.Remove(result);
-            _context.SaveChanges();
+           
+            consults.Remove(result);
+
+            
+            _context.saveDataToFile(consults);
 
             return new JsonResult(NoContent());
         }
 
-        //GetAll
+        // GetAll
         [HttpGet("/GetAll")]
-
-        public JsonResult GetAll() { 
-
-            var result = _context.consults.ToList();
-
+        public JsonResult GetAll()
+        {
+            var result = _context.getDataFromFile();
             return new JsonResult(Ok(result));
         }
     }
