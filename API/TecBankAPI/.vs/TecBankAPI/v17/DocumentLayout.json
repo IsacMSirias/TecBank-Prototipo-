@@ -1,0 +1,147 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|c:\\users\\ggabr\\onedrive\\documentos\\bases de datos\\tecbank-prototipo-\\api\\tecbankapi\\tecbankapi\\controllers\\bankconsultcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|solutionrelative:tecbankapi\\controllers\\bankconsultcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|c:\\users\\ggabr\\onedrive\\documentos\\bases de datos\\tecbank-prototipo-\\api\\tecbankapi\\tecbankapi\\tecbankdb.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|solutionrelative:tecbankapi\\tecbankdb.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|c:\\users\\ggabr\\onedrive\\documentos\\bases de datos\\tecbank-prototipo-\\api\\tecbankapi\\tecbankapi\\services\\filedataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|solutionrelative:tecbankapi\\services\\filedataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|c:\\users\\ggabr\\onedrive\\documentos\\bases de datos\\tecbank-prototipo-\\api\\tecbankapi\\tecbankapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|solutionrelative:tecbankapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|c:\\users\\ggabr\\onedrive\\documentos\\bases de datos\\tecbank-prototipo-\\api\\tecbankapi\\tecbankapi\\data\\apicontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|solutionrelative:tecbankapi\\data\\apicontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|c:\\users\\ggabr\\onedrive\\documentos\\bases de datos\\tecbank-prototipo-\\api\\tecbankapi\\tecbankapi\\models\\bankconsult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|solutionrelative:tecbankapi\\models\\bankconsult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|c:\\users\\ggabr\\onedrive\\documentos\\bases de datos\\tecbank-prototipo-\\api\\tecbankapi\\tecbankapi\\tecbankapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{64B17D9E-AF8B-47FD-8B5D-FAA7359C6926}|TecBankAPI\\TecBankAPI.csproj|solutionrelative:tecbankapi\\tecbankapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TecBankDB.txt",
+              "DocumentMoniker": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\TecBankDB.txt",
+              "RelativeDocumentMoniker": "TecBankAPI\\TecBankDB.txt",
+              "ToolTip": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\TecBankDB.txt",
+              "RelativeToolTip": "TecBankAPI\\TecBankDB.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-04-08T05:59:50.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FileDataService.cs",
+              "DocumentMoniker": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Services\\FileDataService.cs",
+              "RelativeDocumentMoniker": "TecBankAPI\\Services\\FileDataService.cs",
+              "ToolTip": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Services\\FileDataService.cs",
+              "RelativeToolTip": "TecBankAPI\\Services\\FileDataService.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T05:57:46.397Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BankConsultController.cs",
+              "DocumentMoniker": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Controllers\\BankConsultController.cs",
+              "RelativeDocumentMoniker": "TecBankAPI\\Controllers\\BankConsultController.cs",
+              "ToolTip": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Controllers\\BankConsultController.cs",
+              "RelativeToolTip": "TecBankAPI\\Controllers\\BankConsultController.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAkwCIAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T05:24:10.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TecBankAPI",
+              "DocumentMoniker": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\TecBankAPI.csproj",
+              "RelativeDocumentMoniker": "TecBankAPI\\TecBankAPI.csproj",
+              "ToolTip": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\TecBankAPI.csproj",
+              "RelativeToolTip": "TecBankAPI\\TecBankAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-08T05:59:29.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Program.cs",
+              "RelativeDocumentMoniker": "TecBankAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Program.cs",
+              "RelativeToolTip": "TecBankAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T05:21:00.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApiContext.cs",
+              "DocumentMoniker": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Data\\ApiContext.cs",
+              "RelativeDocumentMoniker": "TecBankAPI\\Data\\ApiContext.cs",
+              "ToolTip": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Data\\ApiContext.cs",
+              "RelativeToolTip": "TecBankAPI\\Data\\ApiContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T05:13:33.388Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BankConsult.cs",
+              "DocumentMoniker": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Models\\BankConsult.cs",
+              "RelativeDocumentMoniker": "TecBankAPI\\Models\\BankConsult.cs",
+              "ToolTip": "C:\\Users\\ggabr\\OneDrive\\Documentos\\Bases de Datos\\TecBank-Prototipo-\\API\\TecBankAPI\\TecBankAPI\\Models\\BankConsult.cs",
+              "RelativeToolTip": "TecBankAPI\\Models\\BankConsult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T05:10:54.068Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
