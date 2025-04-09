@@ -28,7 +28,6 @@ C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBank
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.TecBankAPI.props
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.TecBankAPI.props
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\TecBankAPI.csproj.Up2Date
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\TecBankAPI.dll
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\refint\TecBankAPI.dll
@@ -48,3 +47,4 @@ C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBank
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\TecBankDB.txt
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

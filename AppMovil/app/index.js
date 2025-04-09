@@ -6,10 +6,44 @@ export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const url = "http://localhost:6969/api/data";
+
+  const mostrarMensaje = () => {
+    const exampleData = {
+      id: 0,
+      accountNumber: 123456789,
+      clientName: "Juan Pérez",
+      balance: 1500.75
+    };
+    fetch(url, {  
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(exampleData),  
+    })
+    .then(response => {
+    
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      return response.json(); 
+    })
+    .then(data => {
+      console.log('Respuesta de la API:', data);
+    })
+    .catch(error => {
+      console.error('Error en la solicitud:', error);
+    });
+  };
+  
+  
+  
+  
 
   const handleLogin = () => {
     if (email && password) {
-      router.replace('/home'); // redirige al home después del login
+      router.replace('/home');
     } else {
       alert('Por favor ingrese correo y contraseña');
     }
@@ -34,11 +68,18 @@ export default function Login() {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        onSubmitEditing={() => {
+          mostrarMensaje();
+          handleLogin();
+        }}
         style={{ borderWidth: 1, padding: 10, borderRadius: 10 }}
       />
 
       <TouchableOpacity
-        onPress={handleLogin}
+        onPress={() => {
+          mostrarMensaje();
+          handleLogin();
+        }}
         style={{
           backgroundColor: '#1565C0',
           padding: 14,
