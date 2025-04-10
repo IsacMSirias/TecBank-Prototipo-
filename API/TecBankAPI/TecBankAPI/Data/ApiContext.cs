@@ -5,7 +5,7 @@ namespace TecBankAPI.Data
 {
     public class ApiContext: DbContext
     {
-        public DbSet<BankConsult> consults { get; set; }
+        public DbSet<Client> consults { get; set; }
         public ApiContext(DbContextOptions<ApiContext> options):base(options)
 
         {

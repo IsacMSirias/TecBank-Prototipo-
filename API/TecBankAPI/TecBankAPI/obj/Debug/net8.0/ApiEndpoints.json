@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "consult",
-        "Type": "TecBankAPI.Models.BankConsult",
+        "Type": "TecBankAPI.Models.Client",
         "IsRequired": true
       }
     ],

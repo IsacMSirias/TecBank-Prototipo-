@@ -8,15 +8,21 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const url = "http://localhost:6969/api/data";
 
-  const mostrarMensaje = () => {
+  const login = () => {
     const exampleData = {
-      id: 0,
-      accountNumber: 123456789,
-      clientName: email,  // Aquí se guarda el correo en lugar de un valor predeterminado
-      balance: 1500.75
+      "id": 0,
+      "clientType": "string",
+      "monthlyIncome": 0,
+      "firstName": "string",
+      "middleName": "string",
+      "lastName": "string",
+      "secondLastName": "string",
+      "phone": "string",
+      "username": email,
+      "password": "string",
+      "address": "string"
     };
 
-    // Imprimir el objeto exampleData antes de enviarlo
     console.log('JSON a enviar:', JSON.stringify(exampleData));
     
     fetch(url, {  
@@ -33,7 +39,6 @@ export default function Login() {
       return response.json(); 
     })
     .then(data => {
-      // Imprimir la respuesta que se recibe del servidor
       console.log('Respuesta de la API:', data);
     })
     .catch(error => {

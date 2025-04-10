@@ -19,7 +19,7 @@ namespace TecBankAPI.Controllers
 
         // Create/Edit
         [HttpPost]
-        public JsonResult CreateEdit(BankConsult consult)
+        public JsonResult CreateEdit(Client consult)
         {
             var consults = _context.getDataFromFile();
 

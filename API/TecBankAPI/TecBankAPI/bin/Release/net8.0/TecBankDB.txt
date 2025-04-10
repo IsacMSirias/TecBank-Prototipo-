@@ -1,17 +1,54 @@
 [
   {
     "Id": 0,
-    "AccountNumber": 0,
-    "ClientName": "string"
+    "ClientType": null,
+    "MonthlyIncome": 0,
+    "FirstName": null,
+    "MiddleName": null,
+    "LastName": null,
+    "SecondLastName": null,
+    "Phone": null,
+    "Username": null,
+    "Password": null,
+    "Address": null
   },
   {
     "Id": 0,
-    "AccountNumber": 645,
-    "ClientName": "string"
+    "ClientType": null,
+    "MonthlyIncome": 0,
+    "FirstName": null,
+    "MiddleName": null,
+    "LastName": null,
+    "SecondLastName": null,
+    "Phone": null,
+    "Username": null,
+    "Password": null,
+    "Address": null
   },
   {
     "Id": 2,
-    "AccountNumber": 67,
-    "ClientName": "string"
+    "ClientType": null,
+    "MonthlyIncome": 0,
+    "FirstName": null,
+    "MiddleName": null,
+    "LastName": null,
+    "SecondLastName": null,
+    "Phone": null,
+    "Username": null,
+    "Password": null,
+    "Address": null
+  },
+  {
+    "Id": 3,
+    "ClientType": "Pepito Grillo",
+    "MonthlyIncome": 50000,
+    "FirstName": "Pepito",
+    "MiddleName": "string",
+    "LastName": "string",
+    "SecondLastName": "string",
+    "Phone": "string",
+    "Username": "string",
+    "Password": "string",
+    "Address": "string"
   }
 ]

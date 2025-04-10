@@ -15,19 +15,19 @@ namespace TecBankAPI.Services
             _filePath = filePath;
         }
 
-        public List<BankConsult> getDataFromFile()
+        public List<Client> getDataFromFile()
         {
             if (File.Exists(_filePath))
             {
                 var jsonData = File.ReadAllText(_filePath); 
-                return JsonSerializer.Deserialize<List<BankConsult>>(jsonData) ?? new List<BankConsult>();
+                return JsonSerializer.Deserialize<List<Client>>(jsonData) ?? new List<Client>();
             }
             else
             {
                 throw new FileNotFoundException("File was not found");
             }
         }
-        public void saveDataToFile(List<BankConsult> consults)
+        public void saveDataToFile(List<Client> consults)
         {
             var jsonData = JsonSerializer.Serialize(consults, new JsonSerializerOptions { WriteIndented = true }); 
             File.WriteAllText(_filePath, jsonData); 

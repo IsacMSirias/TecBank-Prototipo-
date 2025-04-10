@@ -14,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BankConsult"
+                "$ref": "#/components/schemas/Client"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/BankConsult"
+                "$ref": "#/components/schemas/Client"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/BankConsult"
+                "$ref": "#/components/schemas/Client"
               }
             }
           }
@@ -91,18 +91,50 @@
   },
   "components": {
     "schemas": {
-      "BankConsult": {
+      "Client": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "accountNumber": {
-            "type": "integer",
-            "format": "int32"
+          "clientType": {
+            "type": "string",
+            "nullable": true
           },
-          "clientName": {
+          "monthlyIncome": {
+            "type": "number",
+            "format": "double"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "secondLastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
             "type": "string",
             "nullable": true
           }
