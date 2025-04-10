@@ -12,9 +12,13 @@ export default function Login() {
     const exampleData = {
       id: 0,
       accountNumber: 123456789,
-      clientName: "Juan Pérez",
+      clientName: email,  // Aquí se guarda el correo en lugar de un valor predeterminado
       balance: 1500.75
     };
+
+    // Imprimir el objeto exampleData antes de enviarlo
+    console.log('JSON a enviar:', JSON.stringify(exampleData));
+    
     fetch(url, {  
       method: 'POST',
       headers: {
@@ -23,23 +27,19 @@ export default function Login() {
       body: JSON.stringify(exampleData),  
     })
     .then(response => {
-    
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
       return response.json(); 
     })
     .then(data => {
+      // Imprimir la respuesta que se recibe del servidor
       console.log('Respuesta de la API:', data);
     })
     .catch(error => {
       console.error('Error en la solicitud:', error);
     });
   };
-  
-  
-  
-  
 
   const handleLogin = () => {
     if (email && password) {
