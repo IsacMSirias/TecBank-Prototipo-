@@ -41,11 +41,10 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "username",
             "in": "query",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
@@ -92,6 +91,9 @@
   "components": {
     "schemas": {
       "Client": {
+        "required": [
+          "username"
+        ],
         "type": "object",
         "properties": {
           "id": {

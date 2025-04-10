@@ -4,55 +4,50 @@ import { useState } from 'react';
 
 export default function Login() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const url = "http://localhost:6969/api/data";
 
   const login = () => {
-    const exampleData = {
-      "id": 0,
-      "clientType": "string",
-      "monthlyIncome": 0,
-      "firstName": "string",
-      "middleName": "string",
-      "lastName": "string",
-      "secondLastName": "string",
-      "phone": "string",
-      "username": email,
-      "password": "string",
-      "address": "string"
-    };
 
-    console.log('JSON a enviar:', JSON.stringify(exampleData));
-    
-    fetch(url, {  
-      method: 'POST',
+    const loginUrl = `${url}?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+
+    fetch(loginUrl, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(exampleData),  
     })
     .then(response => {
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
-      return response.json(); 
+      return response.json();
     })
     .then(data => {
-      console.log('Respuesta de la API:', data);
+  
+      if (!data.username || data.password !== password) {
+        alert('Usuario o contraseña incorrectos');
+      } else {
+        router.replace('/home');
+      }
     })
     .catch(error => {
       console.error('Error en la solicitud:', error);
+      alert('usuario no encontrado.');
     });
   };
 
+
+
   const handleLogin = () => {
-    if (email && password) {
-      router.replace('/home');
+    if (username && password) {
+      login();  
     } else {
       alert('Por favor ingrese correo y contraseña');
     }
   };
+  
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#fff' }}>
@@ -61,20 +56,19 @@ export default function Login() {
       </Text>
 
       <TextInput
-        placeholder="Correo"
-        value={email}
+        placeholder="username"
+        value={username}
         onChangeText={setEmail}
         autoCapitalize="none"
         style={{ borderWidth: 1, padding: 10, borderRadius: 10, marginBottom: 15 }}
       />
 
       <TextInput
-        placeholder="Contraseña"
+        placeholder="password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
         onSubmitEditing={() => {
-          mostrarMensaje();
           handleLogin();
         }}
         style={{ borderWidth: 1, padding: 10, borderRadius: 10 }}
@@ -82,7 +76,6 @@ export default function Login() {
 
       <TouchableOpacity
         onPress={() => {
-          mostrarMensaje();
           handleLogin();
         }}
         style={{

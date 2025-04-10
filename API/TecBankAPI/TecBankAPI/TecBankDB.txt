@@ -47,8 +47,21 @@
     "LastName": "string",
     "SecondLastName": "string",
     "Phone": "string",
-    "Username": "string",
+    "Username": "ppgrill",
     "Password": "string",
+    "Address": "string"
+  },
+  {
+    "Id": 4,
+    "ClientType": "string",
+    "MonthlyIncome": 0,
+    "FirstName": "string",
+    "MiddleName": "string",
+    "LastName": "string",
+    "SecondLastName": "string",
+    "Phone": "string",
+    "Username": "chotaflow",
+    "Password": "1234",
     "Address": "string"
   }
 ]

@@ -17,15 +17,15 @@
   },
   {
     "ContainingType": "TecBankAPI.Controllers.DataController",
-    "Method": "Get",
+    "Method": "GetByUsername",
     "RelativePath": "api/Data",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "username",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

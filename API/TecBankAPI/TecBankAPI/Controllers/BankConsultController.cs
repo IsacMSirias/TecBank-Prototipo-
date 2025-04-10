@@ -51,18 +51,24 @@ namespace TecBankAPI.Controllers
             return new JsonResult(Ok(consult));
         }
 
-
-        // Get 
+        //GET
         [HttpGet]
-        public JsonResult Get(int id)
+        public JsonResult GetByUsername(string username)
         {
-            var result = _context.getDataFromFile().FirstOrDefault(c => c.Id == id);
+            if (string.IsNullOrEmpty(username))
+                return new JsonResult(new { error = "Username requerido" }) { StatusCode = 400 };
 
-            if (result == null)
-                return new JsonResult(NotFound());
+            var user = _context.getDataFromFile().FirstOrDefault(c => c.Username == username);
 
-            return new JsonResult(Ok(result));
+            if (user == null)
+                return new JsonResult(new { error = "Usuario no encontrado" }) { StatusCode = 404 };
+
+            return new JsonResult(user);
         }
+
+
+
+
 
         // Delete
         [HttpDelete]
