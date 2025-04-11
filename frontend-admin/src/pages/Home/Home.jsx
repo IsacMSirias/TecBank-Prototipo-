@@ -35,20 +35,23 @@ function Home() {
         <button onClick={(e) => goTo(e, navigate, "/roles", username)}>
           Gestionar Roles
         </button>
+        <button onClick={(e) => goTo(e, navigate, "/clientes", username)}>
+          Gestionar Clientes
+        </button>
         <button onClick={(e) => goTo(e, navigate, "/cuentas", username)}>
           Gestionar Cuentas
         </button>
+        <button onClick={(e) => goTo(e, navigate, "/tarjetas", username)}>
+          Gestionar Tarjetas
+        </button>
         <button onClick={(e) => goTo(e, navigate, "/asesores", username)}>
-          Gestionar Asesores
+          Gestión de Asesores
         </button>
         <button onClick={(e) => goTo(e, navigate, "/prestamos", username)}>
           Gestionar Préstamos
         </button>
-        <button onClick={(e) => goTo(e, navigate, "/clientes", username)}>
-          Gestionar Clientes
-        </button>
-        <button onClick={(e) => goTo(e, navigate, "/tarjetas", username)}>
-          Gestionar Tarjetas
+        <button onClick={(e) => goTo(e, navigate, "/moras", username)}>
+          Gestionar Moras
         </button>
       </main>
     </div>
