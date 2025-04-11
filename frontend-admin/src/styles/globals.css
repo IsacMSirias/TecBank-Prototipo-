@@ -129,6 +129,9 @@ button.--dangerous {
 button.--dangerous:hover {
   padding: 10px;
 }
+.button-group {
+  gap: 20px; /* Agrega un poco más de espacio entre los botones */
+}
 
 .modal-backdrop {
   position: fixed;

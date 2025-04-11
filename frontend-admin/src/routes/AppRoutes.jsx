@@ -12,6 +12,7 @@ import Advisors from "../pages/Advisors/Advisors";
 import Loans from "../pages/Loans/Loans";
 import Clients from "../pages/Clients/Clients";
 import Cards from "../pages/Cards/Cards";
+import Moras from "../pages/Moras(no se como se traduce)/moras";
 
 // Styling
 
@@ -29,6 +30,7 @@ function AppRoutes() {
         <Route path="/tarjetas" element={<Cards/>}/>
         <Route path="/asesores" element={<Advisors/>}/>
         <Route path="/prestamos" element={<Loans/>}/>
+        <Route path="/moras" element={<Moras />} />
       </Routes>
     </BrowserRouter>
   );

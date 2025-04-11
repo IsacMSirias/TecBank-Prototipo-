@@ -28,15 +28,7 @@ function Clientes() {
     obtenerClientes();
   }, [location.state]);
 
-  useEffect(() => {
-    if (location.state?.username) {
-      setUsername(location.state.username);
-    }
-    obtenerClientes();
-  }, [location.state]);
-  
   const obtenerClientes = () => {
-    // Simulando datos de ejemplo
     const datosEjemplo = [
       {
         nombre: "Carlos Rodríguez",
@@ -59,12 +51,10 @@ function Clientes() {
         password: "abcd1234"
       }
     ];
-  
     setClientes(datosEjemplo);
   };
 
   const handleCreate = () => {
-    // TODO: POST a la API
     setMostrarModalNuevo(false);
   };
 
@@ -78,11 +68,8 @@ function Clientes() {
   };
 
   const handleUpdate = () => {
-    // TODO: PUT a la API
     setMostrarModalEditar(false);
   };
-
-  
 
   return (
     <div className="standard-wrapper">
@@ -117,101 +104,55 @@ function Clientes() {
           </tbody>
         </table>
 
-        {/* Modal NUEVO cliente */}
         {mostrarModalNuevo && (
           <div className="modal-backdrop">
             <div className="modal wide">
-              <h2>Nuevo Cliente</h2>
-              <form>
-                <input
-                  type="text"
-                  placeholder="Nombre completo"
-                  value={nuevoCliente.nombre}
-                  onChange={(e) => setNuevoCliente({ ...nuevoCliente, nombre: e.target.value })}
-                />
-                <input
-                  type="text"
-                  placeholder="Cédula"
-                  value={nuevoCliente.cedula}
-                  onChange={(e) => setNuevoCliente({ ...nuevoCliente, cedula: e.target.value })}
-                />
-                <input
-                  type="text"
-                  placeholder="Dirección"
-                  value={nuevoCliente.direccion}
-                  onChange={(e) => setNuevoCliente({ ...nuevoCliente, direccion: e.target.value })}
-                />
-                <input
-                  type="tel"
-                  placeholder="Teléfono"
-                  value={nuevoCliente.telefono}
-                  onChange={(e) => setNuevoCliente({ ...nuevoCliente, telefono: e.target.value })}
-                />
-                <input
-                  type="number"
-                  placeholder="Ingreso mensual"
-                  value={nuevoCliente.ingreso}
-                  onChange={(e) => setNuevoCliente({ ...nuevoCliente, ingreso: e.target.value })}
-                />
-                <select
-                  value={nuevoCliente.tipo}
-                  onChange={(e) => setNuevoCliente({ ...nuevoCliente, tipo: e.target.value })}
-                >
+              <div className="modal-header">
+                <h2>Nuevo Cliente</h2>
+              </div>
+              <form className="modal-body">
+                <input type="text" placeholder="Nombre completo" value={nuevoCliente.nombre} onChange={(e) => setNuevoCliente({ ...nuevoCliente, nombre: e.target.value })} />
+                <input type="text" placeholder="Cédula" value={nuevoCliente.cedula} onChange={(e) => setNuevoCliente({ ...nuevoCliente, cedula: e.target.value })} />
+                <input type="text" placeholder="Dirección" value={nuevoCliente.direccion} onChange={(e) => setNuevoCliente({ ...nuevoCliente, direccion: e.target.value })} />
+                <input type="tel" placeholder="Teléfono" value={nuevoCliente.telefono} onChange={(e) => setNuevoCliente({ ...nuevoCliente, telefono: e.target.value })} />
+                <input type="number" placeholder="Ingreso mensual" value={nuevoCliente.ingreso} onChange={(e) => setNuevoCliente({ ...nuevoCliente, ingreso: e.target.value })} />
+                <select value={nuevoCliente.tipo} onChange={(e) => setNuevoCliente({ ...nuevoCliente, tipo: e.target.value })}>
                   <option value="Físico">Físico</option>
                   <option value="Jurídico">Jurídico</option>
                 </select>
-                <input
-                  type="text"
-                  placeholder="Usuario"
-                  value={nuevoCliente.usuario}
-                  onChange={(e) => setNuevoCliente({ ...nuevoCliente, usuario: e.target.value })}
-                />
-                <input
-                  type="password"
-                  placeholder="Contraseña"
-                  value={nuevoCliente.password}
-                  onChange={(e) => setNuevoCliente({ ...nuevoCliente, password: e.target.value })}
-                />
-                <span>
-                  <button type="button" onClick={handleCreate}>Guardar</button>
-                  <button type="button" className="--dangerous" onClick={() => setMostrarModalNuevo(false)}>Cancelar</button>
-                </span>
+                <input type="text" placeholder="Usuario" value={nuevoCliente.usuario} onChange={(e) => setNuevoCliente({ ...nuevoCliente, usuario: e.target.value })} />
+                <input type="password" placeholder="Contraseña" value={nuevoCliente.password} onChange={(e) => setNuevoCliente({ ...nuevoCliente, password: e.target.value })} />
               </form>
+              <div className="modal-footer">
+                <button type="button" onClick={handleCreate}>Guardar</button>
+                <button type="button" className="--dangerous" onClick={() => setMostrarModalNuevo(false)}>Cancelar</button>
+              </div>
             </div>
           </div>
         )}
 
-        {/* Modal EDITAR cliente */}
         {mostrarModalEditar && (
           <div className="modal-backdrop">
-            <div className="modal">
-              <h2>Editar Cliente</h2>
-              {Object.entries(editando).map(([key, value]) => (
-                key !== "tipo" ? (
-                  <input
-                    key={key}
-                    type={key === "password" ? "password" : "text"}
-                    placeholder={key}
-                    value={value}
-                    onChange={(e) =>
-                      setEditando({ ...editando, [key]: e.target.value })
-                    }
-                  />
-                ) : (
-                  <select
-                    key={key}
-                    value={value}
-                    onChange={(e) =>
-                      setEditando({ ...editando, tipo: e.target.value })
-                    }
-                  >
-                    <option value="Físico">Físico</option>
-                    <option value="Jurídico">Jurídico</option>
-                  </select>
-                )
-              ))}
-              <button onClick={handleUpdate}>Guardar</button>
-              <button className="--dangerous" onClick={() => setMostrarModalEditar(false)}>Cancelar</button>
+            <div className="modal wide">
+              <div className="modal-header">
+                <h2>Editar Cliente</h2>
+              </div>
+              <form className="modal-body">
+                {Object.entries(editando).map(([key, value]) => (
+                  key !== "tipo" ? (
+                    <input key={key} type={key === "password" ? "password" : "text"} placeholder={key} value={value} onChange={(e) => setEditando({ ...editando, [key]: e.target.value })} />
+                  ) : (
+                    <select key={key} value={value} onChange={(e) => setEditando({ ...editando, tipo: e.target.value })}>
+                      <option value="Físico">Físico</option>
+                      <option value="Jurídico">Jurídico</option>
+                    </select>
+                  )
+                ))}
+              </form>
+              <div className="modal-footer">
+                <button onClick={handleUpdate}>Guardar</button>
+                <button className="--dangerous" onClick={() => setMostrarModalEditar(false)}>Cancelar</button>
+              </div>
             </div>
           </div>
         )}
