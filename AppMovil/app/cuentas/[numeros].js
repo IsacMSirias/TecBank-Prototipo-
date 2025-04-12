@@ -36,6 +36,16 @@ export default function DetalleCuenta() {
         </Text>
       </TouchableOpacity>
 
+      {/* Botón para ver las tarjetas */}
+      <TouchableOpacity
+        onPress={() => router.push('/tarjetas')}  // Aquí puedes cambiar la ruta de acuerdo a la estructura de tu aplicación
+        style={{ marginTop: 20, backgroundColor: '#4CAF50', padding: 14, borderRadius: 10 }}
+      >
+        <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>
+          Ver Tarjetas
+        </Text>
+      </TouchableOpacity>
+
       <TouchableOpacity onPress={() => router.back()} style={{ marginTop: 20 }}>
         <Text style={{ color: '#1565C0' }}>← Volver</Text>
       </TouchableOpacity>

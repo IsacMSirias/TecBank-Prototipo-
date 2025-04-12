@@ -6,11 +6,10 @@ export default function Login() {
   const router = useRouter();
   const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const url = "http://localhost:6969/api/data";
+  const url = "http://localhost:6969/api";
 
   const login = () => {
-
-    const loginUrl = `${url}?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+    const loginUrl = `${url}/Client?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
     fetch(loginUrl, {
       method: 'GET',
@@ -25,20 +24,21 @@ export default function Login() {
       return response.json();
     })
     .then(data => {
-  
+
       if (!data.username || data.password !== password) {
         alert('Usuario o contraseña incorrectos');
       } else {
+        // Guardar idCliente en sessionStorage
+        sessionStorage.setItem('idCliente', data.id);  // Guarda el idCliente en sessionStorage
+        console.log(`El id guardado es: ${data.id}`);  // Imprime el id guardado
         router.replace('/home');
       }
     })
     .catch(error => {
       console.error('Error en la solicitud:', error);
-      alert('usuario no encontrado.');
+      alert('Usuario no encontrado.');
     });
   };
-
-
 
   const handleLogin = () => {
     if (username && password) {
@@ -47,7 +47,6 @@ export default function Login() {
       alert('Por favor ingrese correo y contraseña');
     }
   };
-  
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#fff' }}>

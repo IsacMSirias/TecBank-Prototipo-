@@ -1,13 +1,70 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
-
-const cuentas = [
-  { numero: '123456789', saldo: 150000, tipo: 'Ahorros', moneda: 'Colones' },
-  { numero: '987654321', saldo: 500.50, tipo: 'Corriente', moneda: 'Dólares' },
-];
 
 export default function Cuentas() {
   const router = useRouter();
+  const [cuentas, setCuentas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchCuentas = () => {
+    const idCliente = sessionStorage.getItem('idCliente');
+    console.log(`El ID del cliente es: ${idCliente}`);
+
+    if (!idCliente) {
+      setError('No se ha encontrado un id de cliente');
+      setLoading(false);
+      return;
+    }
+
+    const url = `http://localhost:6969/api/Client/${idCliente}`;
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Respuesta del cliente con cuentas:", data);
+        setCuentas(data.accounts || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchCuentas();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Cargando cuentas...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Error: {error}</Text>
+      </View>
+    );
+  }
+
+  if (cuentas.length === 0) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>No tienes cuentas registradas.</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
@@ -15,10 +72,13 @@ export default function Cuentas() {
 
       <FlatList
         data={cuentas}
-        keyExtractor={(item) => item.numero}
+        keyExtractor={(item) => item.number.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => router.push(`/cuentas/${item.numero}`)}
+            onPress={() => {
+              sessionStorage.setItem('cuentaADebitar', item.number); // Aquí guardamos el número
+              router.push(`/cuentas/${item.number}`);
+            }}
             style={{
               backgroundColor: '#f4f4f4',
               padding: 16,
@@ -26,9 +86,9 @@ export default function Cuentas() {
               marginBottom: 15,
             }}
           >
-            <Text style={{ fontWeight: 'bold' }}>{item.tipo}</Text>
-            <Text>₡{item.saldo.toLocaleString()} - {item.moneda}</Text>
-            <Text style={{ fontSize: 12 }}>N° {item.numero}</Text>
+            <Text style={{ fontWeight: 'bold' }}>{item.type}</Text>
+            <Text>{item.balance.toLocaleString()} - {item.currency}</Text>
+            <Text style={{ fontSize: 12 }}>N° {item.number}</Text>
           </TouchableOpacity>
         )}
       />

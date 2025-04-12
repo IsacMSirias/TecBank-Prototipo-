@@ -4,7 +4,7 @@ using TecBankAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuración de la base de datos o servicios necesarios
-builder.Services.AddSingleton<FileDataService>(new FileDataService("TecBankDB.txt"));
+builder.Services.AddSingleton<FileDataService>(new FileDataService("Data"));
 
 // Agregar los controladores
 builder.Services.AddControllers();
@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", policy =>
     {
-        policy.WithOrigins("http://localhost:8081") // Cambia esto por el dominio de tu frontend
+        policy.WithOrigins("http://localhost:8081", "http://localhost:3000") // Cambia esto por el dominio de tu frontend
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -24,12 +24,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configuración de Swagger solo para el entorno de desarrollo
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
 app.UseSwagger();
 app.UseSwaggerUI();
 

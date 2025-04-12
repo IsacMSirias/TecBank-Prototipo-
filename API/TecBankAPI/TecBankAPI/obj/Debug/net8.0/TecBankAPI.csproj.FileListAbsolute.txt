@@ -46,5 +46,7 @@ C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBank
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
-C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\TecBankDB.txt
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\Data\Account.json
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\Data\Client.json
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Debug\net8.0\Data\Card.json

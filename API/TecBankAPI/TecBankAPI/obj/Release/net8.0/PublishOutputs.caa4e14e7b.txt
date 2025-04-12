@@ -1,7 +1,10 @@
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\TecBankAPI.exe
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\appsettings.Development.json
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\appsettings.json
-C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\TecBankDB.txt
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\Data\Account.json
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\Data\Card.json
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\Data\Client.json
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\Data\Loan.json
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\TecBankAPI.dll
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\TecBankAPI.deps.json
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\PubTmp\Out\TecBankAPI.runtimeconfig.json

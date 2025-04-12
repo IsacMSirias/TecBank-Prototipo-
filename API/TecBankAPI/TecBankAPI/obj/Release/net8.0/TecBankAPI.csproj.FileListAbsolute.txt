@@ -1,7 +1,6 @@
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\appsettings.Development.json
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\appsettings.json
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\TecBankAPI.staticwebassets.endpoints.json
-C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\TecBankDB.txt
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\TecBankAPI.exe
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\TecBankAPI.deps.json
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\TecBankAPI.runtimeconfig.json
@@ -48,3 +47,7 @@ C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBank
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\TecBankAPI.pdb
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\TecBankAPI.genruntimeconfig.cache
 C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\obj\Release\net8.0\ref\TecBankAPI.dll
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\Data\Account.json
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\Data\Client.json
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\Data\Card.json
+C:\Users\ggabr\OneDrive\Documentos\Bases de Datos\TecBank-Prototipo-\API\TecBankAPI\TecBankAPI\bin\Release\net8.0\Data\Loan.json

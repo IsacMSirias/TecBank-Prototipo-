@@ -1,0 +1,71 @@
+[
+  {
+    "Id": 1,
+    "Description": "string",
+    "Balance": 0,
+    "Currency": "string",
+    "Number": "string",
+    "Type": "string",
+    "ClientId": 1,
+    "Cards": [
+      {
+        "Id": 1,
+        "CCV": 499,
+        "Balance": 15000,
+        "DueDate": "8-26",
+        "Number": "1235",
+        "Type": "credit",
+        "AccountId": 1
+      },
+      {
+        "Id": 2,
+        "CCV": 499,
+        "Balance": 5000,
+        "DueDate": "8-24",
+        "Number": "516489",
+        "Type": "debir",
+        "AccountId": 1
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "Description": "paco",
+    "Balance": 100000,
+    "Currency": "usd",
+    "Number": "1255",
+    "Type": "ahorro",
+    "ClientId": 1,
+    "Cards": []
+  },
+  {
+    "Id": 3,
+    "Description": "hola",
+    "Balance": 1000000,
+    "Currency": "eur",
+    "Number": "92834",
+    "Type": "ahorro",
+    "ClientId": 1,
+    "Cards": [
+      {
+        "Id": 3,
+        "CCV": 499,
+        "Balance": 5000,
+        "DueDate": "8-24",
+        "Number": "516489",
+        "Type": "debir",
+        "AccountId": 3
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "Description": "addios",
+    "Balance": 1000,
+    "Currency": "crc",
+    "Number": "2555",
+    "Type": "inversion",
+    "ClientId": 1,
+    "Cards": []
+  }
+]

@@ -1,39 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
-using TecBankAPI.Models;
+﻿using System.Text.Json;
+
 
 namespace TecBankAPI.Services
 {
     public class FileDataService
     {
-        private readonly string _filePath;
+        private readonly string _basePath;
 
-        public FileDataService(string filePath)
+        public FileDataService(string basePath)
         {
-            _filePath = filePath;
+            _basePath = basePath;
         }
 
-        public List<Client> getDataFromFile()
+        private string GetFilePath<T>()
         {
-            if (File.Exists(_filePath))
+            return Path.Combine(_basePath, typeof(T).Name + ".json");
+        }
+
+        public List<T> getDataFromFile<T>()
+        {
+            var path = GetFilePath<T>();
+
+            if (File.Exists(path))
             {
-                var jsonData = File.ReadAllText(_filePath); 
-                return JsonSerializer.Deserialize<List<Client>>(jsonData) ?? new List<Client>();
+                var jsonData = File.ReadAllText(path);
+                return JsonSerializer.Deserialize<List<T>>(jsonData) ?? new List<T>();
             }
             else
             {
-                throw new FileNotFoundException("File was not found");
+                return new List<T>(); // Si no existe, simplemente devuelve una lista vacía
             }
         }
-        public void saveDataToFile(List<Client> consults)
+
+        public void saveDataToFile<T>(List<T> data)
         {
-            var jsonData = JsonSerializer.Serialize(consults, new JsonSerializerOptions { WriteIndented = true }); 
-            File.WriteAllText(_filePath, jsonData); 
+            var path = GetFilePath<T>();
+            var jsonData = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(path, jsonData);
         }
     }
+
 }
-
-
 
