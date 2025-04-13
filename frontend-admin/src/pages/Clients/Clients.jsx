@@ -32,38 +32,21 @@ function Clients() {
 
   const fetchClients = async () => {
     try {
-      console.log("Intentando obtener clientes desde:", `${API_URL}/GetAll`);
-      const res = await fetch(`${API_URL}/GetAll`);
-      
-      if (!res.ok) {
-        console.error("Error de red o CORS al obtener clientes:", res.status, res.statusText);
-        return;
-      }
-
+      const res = await fetch("/GetAll");
       const data = await res.json();
-      console.log("Clientes obtenidos:", data);
       setClients(data.value);
     } catch (error) {
-      console.error("Excepción al obtener clientes (posible CORS):", error);
+      console.error("Error al obtener clientes:", error);
     }
   };
 
   const handleCreate = async () => {
     try {
-      console.log("Intentando crear cliente con datos:", newClient);
-
-      const res = await fetch(API_URL, {
+      await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newClient),
       });
-
-      if (!res.ok) {
-        console.error("Error al crear cliente (posible CORS):", res.status, res.statusText);
-        return;
-      }
-
-      console.log("Cliente creado con éxito");
       setShowNewModal(false);
       setNewClient({
         firstName: "",
@@ -80,7 +63,7 @@ function Clients() {
       });
       fetchClients();
     } catch (err) {
-      console.error("Excepción al crear cliente (posible CORS):", err);
+      console.error("Error al crear cliente:", err);
     }
   };
 
@@ -91,43 +74,25 @@ function Clients() {
 
   const handleUpdate = async () => {
     try {
-      console.log("Intentando actualizar cliente con datos:", editingClient);
-
-      const res = await fetch(API_URL, {
+      await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editingClient),
       });
-
-      if (!res.ok) {
-        console.error("Error al actualizar cliente (posible CORS):", res.status, res.statusText);
-        return;
-      }
-
-      console.log("Cliente actualizado correctamente");
       setShowEditModal(false);
       setEditingClient(null);
       fetchClients();
     } catch (err) {
-      console.error("Excepción al actualizar cliente (posible CORS):", err);
+      console.error("Error al actualizar cliente:", err);
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      console.log("Intentando eliminar cliente con ID:", id);
-
-      const res = await fetch(`${API_URL}?id=${id}`, { method: "DELETE" });
-
-      if (!res.ok) {
-        console.error("Error al eliminar cliente (posible CORS):", res.status, res.statusText);
-        return;
-      }
-
-      console.log("Cliente eliminado correctamente");
+      await fetch(`${API_URL}?id=${id}`, { method: "DELETE" });
       fetchClients();
     } catch (err) {
-      console.error("Excepción al eliminar cliente (posible CORS):", err);
+      console.error("Error al eliminar cliente:", err);
     }
   };
 

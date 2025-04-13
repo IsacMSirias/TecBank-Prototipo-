@@ -1,16 +1,13 @@
 // React
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 // Components
 
-// Styling
-
 function AccountOverview() {
-  // Location para mantener información entre páginas
   const location = useLocation();
-  
-   // Extraer datos del location.state
+  const navigate = useNavigate();
+
   const {
     currentUsername,
     accountId,
@@ -22,7 +19,6 @@ function AccountOverview() {
     accountClientName
   } = location.state || {};
 
-  // Estados locales
   const [username, setUsername] = useState(currentUsername);
   const [balance, setBalance] = useState(accountBalance || 0);
   const [clientId, setClientId] = useState(accountClientId || "");
@@ -31,6 +27,12 @@ function AccountOverview() {
   const [currency, setCurrency] = useState(accountCurrency || "");
   const [clientName, setClientName] = useState(accountClientName || "");
   const [id, setId] = useState(accountId || "");
+
+  // Nuevos valores para editar
+  const [newDesc, setNewDesc] = useState("");
+  const [balanceChange, setBalanceChange] = useState(0);
+  const [newType, setNewType] = useState("");
+  const [newClientId, setNewClientId] = useState("");
 
   useEffect(() => {
     if (location.state) {
@@ -45,23 +47,55 @@ function AccountOverview() {
     }
   }, [location.state]);
 
-  const updateAccount = (e) => {
+  const updateAccount = async (e) => {
     e.preventDefault();
-    /* API Request del cambio de datos
-    {
-      ...
-    }
-    */
-  }
 
-  const deleteAccount = (e) => {
-    e.preventDefault();
-    /* API Request del delete (lógico) de la cuenta
-    {
-      ...
+    const updatedAccount = {
+      id,
+      description: newDesc || desc,
+      balance: balance + parseFloat(balanceChange),
+      currency,
+      type: newType || type,
+      clientId: newClientId || clientId,
+    };
+
+    try {
+      const response = await fetch(`http://localhost:6969/api/accounts/new`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedAccount),
+      });
+
+      if (response.ok) {
+        alert("Cuenta actualizada con éxito");
+        navigate(-1); // volver atrás
+      } else {
+        alert("Error al actualizar cuenta");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error al conectar con el servidor");
     }
-    */
-  }
+  };
+
+  const deleteAccount = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://localhost:6969/api/accounts?id=${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Cuenta eliminada correctamente");
+        navigate(-1);
+      } else {
+        alert("Error al eliminar la cuenta");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error al conectar con el servidor");
+    }
+  };
 
   return (
     <div className="standard-wrapper">
@@ -90,17 +124,45 @@ function AccountOverview() {
             </tr>
             <tr>
               <td>---</td>
-              <td><input className="--modifiable-value" type="text" placeholder="Nueva desc."/></td>
+              <td>
+                <input
+                  className="--modifiable-value"
+                  type="text"
+                  placeholder="Nueva desc."
+                  onChange={(e) => setNewDesc(e.target.value)}
+                />
+              </td>
               <td>---</td>
-              <td><input className="--modifiable-value" type="number" placeholder="Monto (+ / -)"/></td>
-              <td><input className="--modifiable-value" type="text" placeholder={type}/></td>
-              <td><input className="--modifiable-value" type="text" placeholder={clientId}/></td>
+              <td>
+                <input
+                  className="--modifiable-value"
+                  type="number"
+                  placeholder="Monto (+ / -)"
+                  onChange={(e) => setBalanceChange(e.target.value)}
+                />
+              </td>
+              <td>
+                <input
+                  className="--modifiable-value"
+                  type="text"
+                  placeholder={type}
+                  onChange={(e) => setNewType(e.target.value)}
+                />
+              </td>
+              <td>
+                <input
+                  className="--modifiable-value"
+                  type="text"
+                  placeholder={clientId}
+                  onChange={(e) => setNewClientId(e.target.value)}
+                />
+              </td>
               <td>---</td>
             </tr>
           </tbody>
         </table>
-        </main>
-        <main>
+      </main>
+      <main>
         <button onClick={updateAccount}>Actualizar Datos</button>
         <button className="--dangerous" onClick={deleteAccount}>Borrar Cuenta</button>
       </main>   

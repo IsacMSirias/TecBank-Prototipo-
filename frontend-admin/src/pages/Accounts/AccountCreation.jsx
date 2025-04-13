@@ -1,42 +1,16 @@
 // React
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { updateValue } from "../../utils";
 
-// Components
-
-// Styling
-
 function AccountCreation() {
-  // Atributos modificables al crear cuenta
   const [accountClientId, setAccountClientId] = useState('');
   const [accountDesc, setAccountDesc] = useState('');
   const [accountCurrency, setAccountCurrency] = useState('');
   const [accountType, setAccountType] = useState('');
 
-  // Hacer un request para intentar crear la cuenta
-  const requestAccountCreation = (e, accountClientId, accountDesc, accountCurrency, accountType) => {
-    e.preventDefault();
-
-    if (accountCurrency != "" && accountType != "") {
-      
-      /*
-      Consultar al API, leer el request status code y alertar del estado (p. ej., Exito, Fallo, Cliente no existe)
-      {
-        ...
-      }
-      */
-      
-      // Aviso provisional para ver que los datos se envíen
-      alert(`Intento de creación de cuenta:\nCed. Cliente: ${accountClientId}\nDescripción: ${accountDesc}\nMoneda: ${accountCurrency}\nTipo: ${accountType}`);
-    } else {
-      alert(`Por favor verifique que los valores introducidos sean válidos`);
-    }
-
-  }
-
-  // Location para mantener el nombre de usuario al navegar
   const location = useLocation();
+  const navigate = useNavigate();
   const [username, setUsername] = useState(location.state?.username || "");
 
   useEffect(() => {
@@ -44,94 +18,93 @@ function AccountCreation() {
       setUsername(location.state.username);
     }
   }, [location.state]);
-  
+
+  const requestAccountCreation = async (e) => {
+    e.preventDefault();
+
+    if (accountCurrency && accountType && accountClientId && accountDesc) {
+      const newAccount = {
+        clientId: accountClientId,
+        description: accountDesc,
+        currency: accountCurrency,
+        type: accountType,
+        balance: 0 // saldo inicial
+      };
+
+      try {
+        const response = await fetch("http://localhost:6969/api/accounts/new", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newAccount),
+        });
+
+        if (response.ok) {
+          alert("Cuenta creada con éxito");
+          navigate(-1); // volver atrás
+        } else {
+          const errorText = await response.text();
+          alert(`Error al crear la cuenta: ${errorText}`);
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Error al conectar con el servidor");
+      }
+    } else {
+      alert("Por favor verifique que los valores introducidos sean válidos.");
+    }
+  };
+
   return (
-    <>
-      <div className="standard-wrapper">
-        <main>
-          <h1>Registro de Nuevas Cuentas</h1>
-          <form onSubmit={(e) => requestAccountCreation(e, accountClientId, accountDesc, accountCurrency, accountType)}>
-            <span>
-              <span>
-                Ced. Cliente
-              </span> 
-              <input 
-                type="text" 
-                value={accountClientId} 
-                onChange={(event) => updateValue(setAccountClientId, event)}
-                required
-              />
-            </span>
-            <span>
-              <span>
-                Descripción
-              </span> 
-              <input 
-                type="text"
-                value={accountDesc}
-                onChange={(event) => updateValue(setAccountDesc, event)}
-                required
-              />
-            </span>
-            <span>
-              <span>
-                Moneda
-              </span> 
-              <select 
-                value={accountCurrency} 
-                onChange={(event) => updateValue(setAccountCurrency, event)}
-              >
-                <option 
-                  value={null}
-                >
-                  Seleccione...
-                </option>  
-                <option 
-                  value="CRC"
-                >
-                  CRC
-                </option>  
-                <option 
-                  value="USD"
-                >
-                  USD
-                </option>  
-              </select>
-            </span>
-            <span>
-              <span>
-                Tipo
-              </span>
-              <select 
-                value={accountType} 
-                onChange={(event) => updateValue(setAccountType, event)}
-              >
-                <option 
-                  value={null}
-                >
-                  Seleccione...
-                </option>
-                <option 
-                  value="Corriente"
-                >
-                  Corriente
-                </option>  
-                <option 
-                  value="Ahorros"
-                >
-                  Ahorros
-                </option>  
-              </select>
-            </span>
-            <button
-              type="submit"
+    <div className="standard-wrapper">
+      <main>
+        <h1>Registro de Nuevas Cuentas</h1>
+        <form onSubmit={requestAccountCreation}>
+          <span>
+            <span>Ced. Cliente</span> 
+            <input 
+              type="text" 
+              value={accountClientId} 
+              onChange={(event) => updateValue(setAccountClientId, event)}
+              required
+            />
+          </span>
+          <span>
+            <span>Descripción</span> 
+            <input 
+              type="text"
+              value={accountDesc}
+              onChange={(event) => updateValue(setAccountDesc, event)}
+              required
+            />
+          </span>
+          <span>
+            <span>Moneda</span> 
+            <select 
+              value={accountCurrency} 
+              onChange={(event) => updateValue(setAccountCurrency, event)}
+              required
             >
-              Crear cuenta
-            </button>
-          </form>
-        </main>
-      </div>
-    </>
+              <option value="">Seleccione...</option>  
+              <option value="CRC">CRC</option>  
+              <option value="USD">USD</option>  
+            </select>
+          </span>
+          <span>
+            <span>Tipo</span>
+            <select 
+              value={accountType} 
+              onChange={(event) => updateValue(setAccountType, event)}
+              required
+            >
+              <option value="">Seleccione...</option>
+              <option value="Corriente">Corriente</option>  
+              <option value="Ahorros">Ahorros</option>  
+            </select>
+          </span>
+          <button type="submit">Crear cuenta</button>
+        </form>
+      </main>
+    </div>
   );
 }
 

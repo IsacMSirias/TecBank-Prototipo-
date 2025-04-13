@@ -1,35 +1,74 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-function Prestamos() {
-  const [prestamos, setPrestamos] = useState([]);
-  const [nuevoPrestamo, setNuevoPrestamo] = useState({
-    cliente: "",
-    monto: "",
-    tasa: "",
-    cuotas: ""
+const API_URL = "http://localhost:6969/api/Loan";
+
+function Loans() {
+  const [loans, setLoans] = useState([]);
+  const [newLoan, setNewLoan] = useState({
+    clientId: "",
+    total: "",
+    tax: "",
+    debt: ""
   });
-  const [editando, setEditando] = useState(null);
-  const [mostrarModalNuevo, setMostrarModalNuevo] = useState(false);
-  const [mostrarModalEditar, setMostrarModalEditar] = useState(false);
+  const [editing, setEditing] = useState(null);
+  const [showNewModal, setShowNewModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
+  // Cargar los préstamos cuando se monta el componente
+  useEffect(() => {
+    axios.get(API_URL)
+      .then(res => setLoans(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
+  // Crear un nuevo préstamo
   const handleCreate = () => {
-    // TODO: Crear nuevo préstamo con la API
-    setMostrarModalNuevo(false);
-    setNuevoPrestamo({ cliente: "", monto: "", tasa: "", cuotas: "" });
+    const newLoanData = {
+      total: parseFloat(newLoan.total),
+      debt: parseFloat(newLoan.debt),
+      tax: parseFloat(newLoan.tax),
+      clientId: parseInt(newLoan.clientId)
+    };
+
+    axios.post(API_URL, newLoanData)
+      .then(res => {
+        setLoans([...loans, res.data.value]);
+        setShowNewModal(false);
+        setNewLoan({ clientId: "", total: "", tax: "", debt: "" });
+      })
+      .catch(err => console.error(err));
   };
 
+  // Actualizar un préstamo existente
   const handleUpdate = () => {
-    // TODO: Actualizar préstamo con la API
-    setMostrarModalEditar(false);
+    const updatedLoan = {
+      id: editing.id,
+      total: parseFloat(editing.total),
+      debt: parseFloat(editing.debt),
+      tax: parseFloat(editing.tax),
+      clientId: parseInt(editing.clientId)
+    };
+
+    axios.post(API_URL, updatedLoan)
+      .then(res => {
+        setLoans(loans.map(l => l.id === updatedLoan.id ? res.data.value : l));
+        setShowEditModal(false);
+      })
+      .catch(err => console.error(err));
   };
 
-  const handleEdit = (prestamo) => {
-    setEditando(prestamo);
-    setMostrarModalEditar(true);
+  // Eliminar un préstamo
+  const handleDelete = (id) => {
+    axios.delete(`${API_URL}/${id}`)
+      .then(() => setLoans(loans.filter(l => l.id !== id)))
+      .catch(err => console.error(err));
   };
 
-  const handleDelete = (index) => {
-    // TODO: Eliminar préstamo con la API
+  // Editar un préstamo
+  const handleEdit = (loan) => {
+    setEditing(loan);
+    setShowEditModal(true);
   };
 
   return (
@@ -37,7 +76,7 @@ function Prestamos() {
       <main>
         <h1>Gestión de Préstamos</h1>
 
-        <button onClick={() => setMostrarModalNuevo(true)}>Nuevo Préstamo</button>
+        <button onClick={() => setShowNewModal(true)}>Nuevo Préstamo</button>
 
         <table>
           <thead>
@@ -50,15 +89,15 @@ function Prestamos() {
             </tr>
           </thead>
           <tbody>
-            {prestamos.map((prestamo, index) => (
-              <tr key={index}>
-                <td>{prestamo.numero}</td>
-                <td>{prestamo.cliente}</td>
-                <td>{prestamo.montoOriginal}</td>
-                <td>{prestamo.saldo}</td>
+            {loans.map((loan, index) => (
+              <tr key={loan.id}>
+                <td>{loan.id}</td>
+                <td>{loan.clientId}</td>
+                <td>{loan.total}</td>
+                <td>{loan.debt}</td>
                 <td>
-                  <button onClick={() => handleEdit(prestamo)}>Editar</button>
-                  <button className="--dangerous" onClick={() => handleDelete(index)}>
+                  <button onClick={() => handleEdit(loan)}>Editar</button>
+                  <button className="--dangerous" onClick={() => handleDelete(loan.id)}>
                     Eliminar
                   </button>
                 </td>
@@ -68,23 +107,23 @@ function Prestamos() {
         </table>
 
         {/* Modal NUEVO Préstamo */}
-        {mostrarModalNuevo && (
+        {showNewModal && (
           <div className="modal-backdrop">
             <div className="modal">
               <h2>Agregar Nuevo Préstamo</h2>
-              {Object.entries(nuevoPrestamo).map(([key, value]) => (
+              {Object.entries(newLoan).map(([key, value]) => (
                 <input
                   key={key}
-                  type={key === "monto" || key === "tasa" || key === "cuotas" ? "number" : "text"}
+                  type={key === "total" || key === "tax" || key === "debt" ? "number" : "text"}
                   placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
                   value={value}
                   onChange={(e) =>
-                    setNuevoPrestamo({ ...nuevoPrestamo, [key]: e.target.value })
+                    setNewLoan({ ...newLoan, [key]: e.target.value })
                   }
                 />
               ))}
               <button onClick={handleCreate}>Guardar</button>
-              <button className="--dangerous" onClick={() => setMostrarModalNuevo(false)}>
+              <button className="--dangerous" onClick={() => setShowNewModal(false)}>
                 Cancelar
               </button>
             </div>
@@ -92,23 +131,23 @@ function Prestamos() {
         )}
 
         {/* Modal EDITAR Préstamo */}
-        {mostrarModalEditar && (
+        {showEditModal && (
           <div className="modal-backdrop">
             <div className="modal">
               <h2>Editar Préstamo</h2>
-              {editando && Object.entries(editando).map(([key, value]) => (
+              {editing && Object.entries(editing).map(([key, value]) => (
                 <input
                   key={key}
-                  type={key === "monto" || key === "tasa" || key === "cuotas" ? "number" : "text"}
+                  type={key === "total" || key === "tax" || key === "debt" ? "number" : "text"}
                   placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
                   value={value}
                   onChange={(e) =>
-                    setEditando({ ...editando, [key]: e.target.value })
+                    setEditing({ ...editing, [key]: e.target.value })
                   }
                 />
               ))}
               <button onClick={handleUpdate}>Guardar</button>
-              <button className="--dangerous" onClick={() => setMostrarModalEditar(false)}>
+              <button className="--dangerous" onClick={() => setShowEditModal(false)}>
                 Cancelar
               </button>
             </div>
@@ -119,4 +158,4 @@ function Prestamos() {
   );
 }
 
-export default Prestamos;
+export default Loans;

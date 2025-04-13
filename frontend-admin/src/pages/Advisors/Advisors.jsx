@@ -1,44 +1,86 @@
 import { useEffect, useState } from "react";
 
-function AsesoresCredito() {
-  const [asesores, setAsesores] = useState([]);
-  const [nuevoAsesor, setNuevoAsesor] = useState({
-    nombre: "",
-    cedula: "",
-    nacimiento: "",
-    metaColones: "",
-    metaDolares: ""
+function Advisors() {
+  const [advisors, setAdvisors] = useState([]);
+  const [newAdvisor, setNewAdvisor] = useState({
+    idNumber: "",
+    firstName: "",
+    middleName1: "",
+    middleName2: "",
+    lastName1: "",
+    lastName2: "",
+    birthDate: "",
+    salesTargetColones: "",
+    salesTargetDollars: ""
   });
 
-  const [editando, setEditando] = useState(null);
-  const [mostrarModalNuevo, setMostrarModalNuevo] = useState(false);
-  const [mostrarModalEditar, setMostrarModalEditar] = useState(false);
+  const [editing, setEditing] = useState(null);
+  const [showNewModal, setShowNewModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const API_URL = "http://localhost:6969/api/advisor";
 
   useEffect(() => {
-    obtenerAsesores();
+    fetchAdvisors();
   }, []);
 
-  const obtenerAsesores = () => {
-    // TODO: GET a la API para obtener asesores
+  const fetchAdvisors = async () => {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+    setAdvisors(data);
   };
 
-  const handleCreate = () => {
-    // TODO: POST a la API para crear asesor
-    setMostrarModalNuevo(false);
+  const handleCreate = async () => {
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...newAdvisor,
+        salesTargetColones: parseFloat(newAdvisor.salesTargetColones),
+        salesTargetDollars: parseFloat(newAdvisor.salesTargetDollars),
+        birthDate: new Date(newAdvisor.birthDate).toISOString()
+      })
+    });
+    setShowNewModal(false);
+    setNewAdvisor({
+      idNumber: "",
+      firstName: "",
+      middleName1: "",
+      middleName2: "",
+      lastName1: "",
+      lastName2: "",
+      birthDate: "",
+      salesTargetColones: "",
+      salesTargetDollars: ""
+    });
+    fetchAdvisors();
   };
 
-  const handleDelete = (index) => {
-    // TODO: DELETE a la API para eliminar asesor
+  const handleDelete = async (idNumber) => {
+    await fetch(`${API_URL}/${idNumber}`, {
+      method: "DELETE"
+    });
+    fetchAdvisors();
   };
 
-  const handleEdit = (asesor) => {
-    setEditando({ ...asesor });
-    setMostrarModalEditar(true);
+  const handleEdit = (advisor) => {
+    setEditing(advisor);
+    setShowEditModal(true);
   };
 
-  const handleUpdate = () => {
-    // TODO: PUT a la API para actualizar asesor
-    setMostrarModalEditar(false);
+  const handleUpdate = async () => {
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...editing,
+        salesTargetColones: parseFloat(editing.salesTargetColones),
+        salesTargetDollars: parseFloat(editing.salesTargetDollars),
+        birthDate: new Date(editing.birthDate).toISOString()
+      })
+    });
+    setShowEditModal(false);
+    fetchAdvisors();
   };
 
   return (
@@ -46,72 +88,72 @@ function AsesoresCredito() {
       <main>
         <h1>Gestión de Asesores de Crédito</h1>
 
-        <button onClick={() => setMostrarModalNuevo(true)}>Agregar Asesor</button>
+        <button onClick={() => setShowNewModal(true)}>Agregar Asesor</button>
 
         <table>
           <thead>
             <tr>
-              <th>Nombre</th>
+              <th>Nombre completo</th>
               <th>Cédula</th>
-              <th>Nacimiento</th>
+              <th>Fecha de nacimiento</th>
               <th>Meta ₡</th>
               <th>Meta $</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {asesores.map((asesor, index) => (
+            {advisors.map((a, index) => (
               <tr key={index}>
-                <td>{asesor.nombre}</td>
-                <td>{asesor.cedula}</td>
-                <td>{asesor.nacimiento}</td>
-                <td>₡{asesor.metaColones}</td>
-                <td>${asesor.metaDolares}</td>
+                <td>{`${a.firstName} ${a.middleName1} ${a.middleName2} ${a.lastName1} ${a.lastName2}`}</td>
+                <td>{a.idNumber}</td>
+                <td>{a.birthDate?.split("T")[0]}</td>
+                <td>₡{a.salesTargetColones}</td>
+                <td>${a.salesTargetDollars}</td>
                 <td>
-                  <button onClick={() => handleEdit(asesor)}>Editar</button>
-                  <button className="--dangerous" onClick={() => handleDelete(index)}>Eliminar</button>
+                  <button onClick={() => handleEdit(a)}>Editar</button>
+                  <button className="--dangerous" onClick={() => handleDelete(a.idNumber)}>Eliminar</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        {/* Modal NUEVO asesor */}
-        {mostrarModalNuevo && (
+        {/* Modal NUEVO */}
+        {showNewModal && (
           <div className="modal-backdrop">
             <div className="modal">
               <h2>Nuevo Asesor</h2>
-              {Object.entries(nuevoAsesor).map(([key, value]) => (
+              {Object.entries(newAdvisor).map(([key, value]) => (
                 <input
                   key={key}
-                  type={key === "nacimiento" ? "date" : "text"}
-                  placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+                  type={key === "birthDate" ? "date" : "text"}
+                  placeholder={key}
                   value={value}
-                  onChange={(e) => setNuevoAsesor({ ...nuevoAsesor, [key]: e.target.value })}
+                  onChange={(e) => setNewAdvisor({ ...newAdvisor, [key]: e.target.value })}
                 />
               ))}
               <button onClick={handleCreate}>Guardar</button>
-              <button className="--dangerous" onClick={() => setMostrarModalNuevo(false)}>Cancelar</button>
+              <button className="--dangerous" onClick={() => setShowNewModal(false)}>Cancelar</button>
             </div>
           </div>
         )}
 
-        {/* Modal EDITAR asesor */}
-        {mostrarModalEditar && (
+        {/* Modal EDITAR */}
+        {showEditModal && editing && (
           <div className="modal-backdrop">
             <div className="modal">
               <h2>Editar Asesor</h2>
-              {Object.entries(editando).map(([key, value]) => (
+              {Object.entries(editing).map(([key, value]) => (
                 <input
                   key={key}
-                  type={key === "nacimiento" ? "date" : "text"}
-                  placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+                  type={key === "birthDate" ? "date" : "text"}
+                  placeholder={key}
                   value={value}
-                  onChange={(e) => setEditando({ ...editando, [key]: e.target.value })}
+                  onChange={(e) => setEditing({ ...editing, [key]: e.target.value })}
                 />
               ))}
               <button onClick={handleUpdate}>Guardar</button>
-              <button className="--dangerous" onClick={() => setMostrarModalEditar(false)}>Cancelar</button>
+              <button className="--dangerous" onClick={() => setShowEditModal(false)}>Cancelar</button>
             </div>
           </div>
         )}
@@ -120,4 +162,4 @@ function AsesoresCredito() {
   );
 }
 
-export default AsesoresCredito;
+export default Advisors;
