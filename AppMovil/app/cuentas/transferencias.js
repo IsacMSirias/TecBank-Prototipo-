@@ -17,8 +17,8 @@ export default function Transferencias() {
 
     try {
       const [resOrigen, resDestino] = await Promise.all([
-        fetch(`http://localhost:6969/api/Account/number/${cuentaOrigen}`),
-        fetch(`http://localhost:6969/api/Account/number/${cuentaDestino}`)
+        fetch(`http://10.10.10.34:6969/api/Account/number/${cuentaOrigen}`),
+        fetch(`http://10.10.10.34:6969/api/Account/number/${cuentaDestino}`)
       ]);
 
       if (!resOrigen.ok || !resDestino.ok) {
@@ -51,14 +51,14 @@ export default function Transferencias() {
       };
 
       // POST cuenta origen
-      await fetch(`http://localhost:6969/api/Account`, {
+      await fetch(`http://10.10.10.34:6969/api/Account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevaCuentaOrigen),
       });
 
       // POST cuenta destino
-      await fetch(`http://localhost:6969/api/Account`, {
+      await fetch(`http://10.10.10.34:6969/api/Account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevaCuentaDestino),
@@ -109,10 +109,20 @@ export default function Transferencias() {
         <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Transferir</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => router.back()} style={{ marginTop: 20 }}>
-        <Text style={{ color: '#1565C0' }}>← Volver</Text>
+      {/* Botón de regreso */}
+      <TouchableOpacity
+        onPress={() => router.push('/cuentas')}
+        style={{
+          marginTop: 20,
+          backgroundColor: '#E0E0E0',
+          padding: 14,
+          borderRadius: 10,
+        }}
+      >
+        <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#333' }}>
+          ← Volver a Cuentas
+        </Text>
       </TouchableOpacity>
     </View>
   );
-}
-
+};
