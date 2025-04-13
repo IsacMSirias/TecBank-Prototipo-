@@ -17,8 +17,8 @@ export default function Transferencias() {
 
     try {
       const [resOrigen, resDestino] = await Promise.all([
-        fetch(`http://10.10.10.34:6969/api/Account/number/${cuentaOrigen}`),
-        fetch(`http://10.10.10.34:6969/api/Account/number/${cuentaDestino}`)
+        fetch(`http://localhost:6969/api/Account/number/${cuentaOrigen}`),
+        fetch(`http://localhost:6969/api/Account/number/${cuentaDestino}`)
       ]);
 
       if (!resOrigen.ok || !resDestino.ok) {
@@ -50,24 +50,46 @@ export default function Transferencias() {
         balance: dataDestino.balance + montoNumero
       };
 
-      // POST cuenta origen
-      await fetch(`http://10.10.10.34:6969/api/Account`, {
+      // Actualizar cuenta origen
+      await fetch(`http://localhost:6969/api/Account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevaCuentaOrigen),
       });
 
-      // POST cuenta destino
-      await fetch(`http://10.10.10.34:6969/api/Account`, {
+      // Actualizar cuenta destino
+      await fetch(`http://localhost:6969/api/Account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevaCuentaDestino),
       });
 
+      // Crear transacción para cuenta origen (retiro)
+      await fetch(`http://localhost:6969/api/Transaction/account/${dataOrigen.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          balance: montoNumero,
+          date: new Date().toISOString(),
+          type: 'retiro'
+        }),
+      });
+
+      // Crear transacción para cuenta destino (depósito)
+      await fetch(`http://localhost:6969/api/Transaction/account/${dataDestino.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          balance: montoNumero,
+          date: new Date().toISOString(),
+          type: 'deposito'
+        }),
+      });
+
       Alert.alert('Éxito', 'Transferencia realizada correctamente');
       setCuentaDestino('');
       setMonto('');
-      router.push('/cuentas'); // Redirige de vuelta a cuentas
+      router.push('/cuentas');
 
     } catch (error) {
       console.error(error);
@@ -109,20 +131,9 @@ export default function Transferencias() {
         <Text style={{ color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>Transferir</Text>
       </TouchableOpacity>
 
-      {/* Botón de regreso */}
-      <TouchableOpacity
-        onPress={() => router.push('/cuentas')}
-        style={{
-          marginTop: 20,
-          backgroundColor: '#E0E0E0',
-          padding: 14,
-          borderRadius: 10,
-        }}
-      >
-        <Text style={{ textAlign: 'center', fontWeight: 'bold', color: '#333' }}>
-          ← Volver a Cuentas
-        </Text>
+      <TouchableOpacity onPress={() => router.back()} style={{ marginTop: 20 }}>
+        <Text style={{ color: '#1565C0' }}>← Volver</Text>
       </TouchableOpacity>
     </View>
   );
-};
+}

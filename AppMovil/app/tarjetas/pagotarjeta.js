@@ -18,7 +18,6 @@ export default function PagoTarjeta() {
       return;
     }
 
-    // Obtener tarjeta
     fetch(`http://localhost:6969/api/Card/number/${numeroTarjeta}`)
       .then((res) => {
         if (!res.ok) throw new Error('Error al obtener tarjeta');
@@ -27,7 +26,6 @@ export default function PagoTarjeta() {
       .then(setTarjeta)
       .catch((err) => setError(err.message));
 
-    // Obtener cuenta
     fetch(`http://localhost:6969/api/Account/number/${numeroCuenta}`)
       .then((res) => {
         if (!res.ok) throw new Error('Error al obtener cuenta');
@@ -37,16 +35,11 @@ export default function PagoTarjeta() {
       .catch((err) => setError(err.message));
   }, []);
 
-  const handlePago = () => {
+  const handlePago = async () => {
     const montoNumerico = parseFloat(monto);
 
     if (isNaN(montoNumerico) || montoNumerico <= 0) {
       Alert.alert('Monto inválido', 'Por favor ingrese un monto válido.');
-      return;
-    }
-
-    if (montoNumerico > tarjeta.balance) {
-      Alert.alert('Error', 'El monto supera el balance de la tarjeta.');
       return;
     }
 
@@ -55,24 +48,63 @@ export default function PagoTarjeta() {
       return;
     }
 
-    const nuevoBalanceTarjeta = tarjeta.balance - montoNumerico;
-    const nuevoBalanceCuenta = cuenta.balance - montoNumerico;
+    try {
+      // Nuevos balances
+      const nuevoBalanceCuenta = cuenta.balance - montoNumerico;
+      const nuevoBalanceTarjeta = tarjeta.balance + montoNumerico;
 
-    // Simular actualización local
-    setTarjeta((prev) => ({
-      ...prev,
-      balance: nuevoBalanceTarjeta,
-    }));
+      // Actualizar cuenta
+      await fetch(`http://localhost:6969/api/Account`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...cuenta,
+          balance: nuevoBalanceCuenta
+        }),
+      });
 
-    setCuenta((prev) => ({
-      ...prev,
-      balance: nuevoBalanceCuenta,
-    }));
+      // Actualizar tarjeta
+      await fetch(`http://localhost:6969/api/Card`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...tarjeta,
+          balance: nuevoBalanceTarjeta
+        }),
+      });
 
-    // (Opcional) Aquí podrías hacer un PUT o PATCH al servidor para actualizar los balances
+      // Crear transacción en cuenta (retiro)
+      await fetch(`http://localhost:6969/api/Transaction/account/${cuenta.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          balance: montoNumerico,
+          date: new Date().toISOString(),
+          type: 'retiro',
+          description: `Pago a tarjeta ${tarjeta.number}`
+        }),
+      });
 
-    Alert.alert('Pago realizado', `Se ha pagado ₡${montoNumerico.toLocaleString()}`);
-    setMonto('');
+      // Crear transacción en tarjeta (depósito)
+      await fetch(`http://localhost:6969/api/Transaction/card/${tarjeta.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          balance: montoNumerico,
+          date: new Date().toISOString(),
+          type: 'deposito',
+          description: `Pago desde cuenta ${cuenta.number}`
+        }),
+      });
+
+      Alert.alert('Pago realizado', `Se ha pagado ₡${montoNumerico.toLocaleString()}`);
+      setMonto('');
+      router.push('/tarjetas');
+
+    } catch (err) {
+      console.error(err);
+      Alert.alert('Error', 'Ocurrió un problema al procesar el pago.');
+    }
   };
 
   if (error) {

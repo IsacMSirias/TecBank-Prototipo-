@@ -15,7 +15,8 @@
         "DueDate": "8-26",
         "Number": "1235",
         "Type": "credit",
-        "AccountId": 1
+        "AccountId": 1,
+        "Transactions": []
       },
       {
         "Id": 2,
@@ -24,9 +25,11 @@
         "DueDate": "8-24",
         "Number": "516489",
         "Type": "debir",
-        "AccountId": 1
+        "AccountId": 1,
+        "Transactions": []
       }
-    ]
+    ],
+    "Transactions": []
   },
   {
     "Id": 2,
@@ -36,12 +39,13 @@
     "Number": "1255",
     "Type": "ahorro",
     "ClientId": 1,
-    "Cards": []
+    "Cards": [],
+    "Transactions": []
   },
   {
     "Id": 3,
     "Description": "hola",
-    "Balance": 1000000,
+    "Balance": 1049500,
     "Currency": "eur",
     "Number": "92834",
     "Type": "ahorro",
@@ -54,7 +58,22 @@
         "DueDate": "8-24",
         "Number": "516489",
         "Type": "debir",
-        "AccountId": 3
+        "AccountId": 3,
+        "Transactions": []
+      }
+    ],
+    "Transactions": [
+      {
+        "Id": 1,
+        "Balance": 500,
+        "Date": "12-65-89",
+        "Type": "retiro"
+      },
+      {
+        "Id": 2,
+        "Balance": 50000,
+        "Date": "5-6-95",
+        "Type": "deposito"
       }
     ]
   },
@@ -66,6 +85,7 @@
     "Number": "2555",
     "Type": "inversion",
     "ClientId": 1,
-    "Cards": []
+    "Cards": [],
+    "Transactions": []
   }
 ]
