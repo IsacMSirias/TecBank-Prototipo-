@@ -1,6 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Transferencias() {
   const [cuentaDestino, setCuentaDestino] = useState('');
@@ -8,17 +9,17 @@ export default function Transferencias() {
   const router = useRouter();
 
   const handleTransfer = async () => {
-    const cuentaOrigen = sessionStorage.getItem('cuentaADebitar');
-
-    if (!cuentaOrigen) {
-      Alert.alert('Error', 'No se encontró la cuenta a debitar.');
-      return;
-    }
-
     try {
+      const cuentaOrigen = await AsyncStorage.getItem('cuentaADebitar');
+
+      if (!cuentaOrigen) {
+        Alert.alert('Error', 'No se encontró la cuenta a debitar.');
+        return;
+      }
+
       const [resOrigen, resDestino] = await Promise.all([
-        fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaOrigen}`), // IP actualizada
-        fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaDestino}`)  // IP actualizada
+        fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaOrigen}`),
+        fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaDestino}`)
       ]);
 
       if (!resOrigen.ok || !resDestino.ok) {
@@ -50,22 +51,19 @@ export default function Transferencias() {
         balance: dataDestino.balance + montoNumero
       };
 
-      // Actualizar cuenta origen
-      await fetch(`http://192.168.50.135:6969/api/Account`, { // IP actualizada
+      await fetch(`http://192.168.50.135:6969/api/Account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevaCuentaOrigen),
       });
 
-      // Actualizar cuenta destino
-      await fetch(`http://192.168.50.135:6969/api/Account`, { // IP actualizada
+      await fetch(`http://192.168.50.135:6969/api/Account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevaCuentaDestino),
       });
 
-      // Crear transacción para cuenta origen (retiro)
-      await fetch(`http://192.168.50.135:6969/api/Transaction/account/${dataOrigen.id}`, { // IP actualizada
+      await fetch(`http://192.168.50.135:6969/api/Transaction/account/${dataOrigen.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -75,8 +73,7 @@ export default function Transferencias() {
         }),
       });
 
-      // Crear transacción para cuenta destino (depósito)
-      await fetch(`http://192.168.50.135:6969/api/Transaction/account/${dataDestino.id}`, { // IP actualizada
+      await fetch(`http://192.168.50.135:6969/api/Transaction/account/${dataDestino.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

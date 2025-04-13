@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PagoTarjeta() {
   const [monto, setMonto] = useState('');
@@ -10,29 +11,33 @@ export default function PagoTarjeta() {
   const router = useRouter();
 
   useEffect(() => {
-    const numeroTarjeta = sessionStorage.getItem('tarjetaSeleccionada');
-    const numeroCuenta = sessionStorage.getItem('cuentaADebitar');
+    const fetchData = async () => {
+      try {
+        const numeroTarjeta = await AsyncStorage.getItem('tarjetaSeleccionada');
+        const numeroCuenta = await AsyncStorage.getItem('cuentaADebitar');
 
-    if (!numeroTarjeta || !numeroCuenta) {
-      setError('No se ha seleccionado tarjeta o cuenta.');
-      return;
-    }
+        if (!numeroTarjeta || !numeroCuenta) {
+          setError('No se ha seleccionado tarjeta o cuenta.');
+          return;
+        }
 
-    fetch(`http://192.168.50.135:6969/api/Card/number/${numeroTarjeta}`) // IP actualizada
-      .then((res) => {
-        if (!res.ok) throw new Error('Error al obtener tarjeta');
-        return res.json();
-      })
-      .then(setTarjeta)
-      .catch((err) => setError(err.message));
+        // Obtener tarjeta
+        const tarjetaRes = await fetch(`http://192.168.50.135:6969/api/Card/number/${numeroTarjeta}`); // IP actualizada
+        if (!tarjetaRes.ok) throw new Error('Error al obtener tarjeta');
+        const tarjetaData = await tarjetaRes.json();
+        setTarjeta(tarjetaData);
 
-    fetch(`http://192.168.50.135:6969/api/Account/number/${numeroCuenta}`) // IP actualizada
-      .then((res) => {
-        if (!res.ok) throw new Error('Error al obtener cuenta');
-        return res.json();
-      })
-      .then(setCuenta)
-      .catch((err) => setError(err.message));
+        // Obtener cuenta
+        const cuentaRes = await fetch(`http://192.168.50.135:6969/api/Account/number/${numeroCuenta}`); // IP actualizada
+        if (!cuentaRes.ok) throw new Error('Error al obtener cuenta');
+        const cuentaData = await cuentaRes.json();
+        setCuenta(cuentaData);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handlePago = async () => {

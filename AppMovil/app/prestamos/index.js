@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Prestamos() {
   const [prestamos, setPrestamos] = useState([]);
@@ -8,32 +9,31 @@ export default function Prestamos() {
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  const fetchPrestamos = () => {
-    const idCliente = sessionStorage.getItem('idCliente');
-    console.log(`El ID del cliente es: ${idCliente}`);
+  const fetchPrestamos = async () => {
+    try {
+      const idCliente = await AsyncStorage.getItem('idCliente');
+      console.log(`El ID del cliente es: ${idCliente}`);
 
-    if (!idCliente) {
-      setError('No se encontró el ID del cliente.');
+      if (!idCliente) {
+        setError('No se encontró el ID del cliente.');
+        setLoading(false);
+        return;
+      }
+
+      const url = `http://192.168.50.135:6969/api/Client/${idCliente}`;
+      const res = await fetch(url);
+
+      if (!res.ok) throw new Error(`Error: ${res.status} ${res.statusText}`);
+
+      const cliente = await res.json();
+      console.log('Respuesta del cliente con préstamos:', cliente);
+
+      setPrestamos(cliente.loans || []);
       setLoading(false);
-      return;
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
     }
-
-    const url = `http://192.168.50.135:6969/api/Client/${idCliente}`; // IP actualizada
-
-    fetch(url)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Error: ${res.status} ${res.statusText}`);
-        return res.json();
-      })
-      .then((cliente) => {
-        console.log('Respuesta del cliente con préstamos:', cliente);
-        setPrestamos(cliente.loans || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
   };
 
   useEffect(() => {
@@ -73,8 +73,8 @@ export default function Prestamos() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => {
-              sessionStorage.setItem('prestamoASeleccionar', item.id.toString());
+            onPress={async () => {
+              await AsyncStorage.setItem('prestamoASeleccionar', item.id.toString());
               router.push('/prestamos/pagoprestamo');
             }}
             style={{ backgroundColor: '#eee', padding: 16, borderRadius: 10, marginBottom: 15 }}

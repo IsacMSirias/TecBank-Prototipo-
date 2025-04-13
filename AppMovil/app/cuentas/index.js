@@ -1,6 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Cuentas() {
   const router = useRouter();
@@ -8,34 +9,32 @@ export default function Cuentas() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchCuentas = () => {
-    const idCliente = sessionStorage.getItem('idCliente');
-    console.log(`El ID del cliente es: ${idCliente}`);
+  const fetchCuentas = async () => {
+    try {
+      const idCliente = await AsyncStorage.getItem('idCliente');
+      console.log(`El ID del cliente es: ${idCliente}`);
 
-    if (!idCliente) {
-      setError('No se ha encontrado un id de cliente');
+      if (!idCliente) {
+        setError('No se ha encontrado un id de cliente');
+        setLoading(false);
+        return;
+      }
+
+      const url = `http://192.168.50.135:6969/api/Client/${idCliente}`;
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Respuesta del cliente con cuentas:", data);
+      setCuentas(data.accounts || []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const url = `http://192.168.50.135:6969/api/Client/${idCliente}`; // IP actualizada
-
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Respuesta del cliente con cuentas:", data);
-        setCuentas(data.accounts || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
   };
 
   useEffect(() => {
@@ -75,8 +74,8 @@ export default function Cuentas() {
         keyExtractor={(item) => item.number.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => {
-              sessionStorage.setItem('cuentaADebitar', item.number); // Aquí guardamos el número
+            onPress={async () => {
+              await AsyncStorage.setItem('cuentaADebitar', item.number.toString());
               router.push(`/cuentas/${item.number}`);
             }}
             style={{

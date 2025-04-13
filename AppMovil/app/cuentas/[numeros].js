@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DetalleCuenta() {
   const router = useRouter();
@@ -8,14 +9,15 @@ export default function DetalleCuenta() {
 
   useEffect(() => {
     const fetchTransacciones = async () => {
-      const cuentaId = sessionStorage.getItem('cuentaADebitar');
-      if (!cuentaId) {
-        Alert.alert('Error', 'No se encontró la cuenta seleccionada.');
-        return;
-      }
-
       try {
-        const res = await fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaId}`); // IP actualizada
+        const cuentaId = await AsyncStorage.getItem('cuentaADebitar');
+
+        if (!cuentaId) {
+          Alert.alert('Error', 'No se encontró la cuenta seleccionada.');
+          return;
+        }
+
+        const res = await fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaId}`);
         const data = await res.json();
 
         if (!res.ok) {
@@ -78,7 +80,13 @@ export default function DetalleCuenta() {
 
       <TouchableOpacity
         onPress={() => router.back()}
-        style={{ marginTop: 30, padding: 12, borderRadius: 8, backgroundColor: '#E0E0E0', alignItems: 'center' }}
+        style={{
+          marginTop: 30,
+          padding: 12,
+          borderRadius: 8,
+          backgroundColor: '#E0E0E0',
+          alignItems: 'center',
+        }}
       >
         <Text style={{ color: '#1565C0', fontWeight: 'bold' }}>← Volver</Text>
       </TouchableOpacity>

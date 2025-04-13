@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, FlatList, Alert } from 'react-
 import { useEffect, useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PagoPrestamo() {
   const [monto, setMonto] = useState('');
@@ -11,26 +12,31 @@ export default function PagoPrestamo() {
   const router = useRouter();
 
   useEffect(() => {
-    const idCliente = sessionStorage.getItem('idCliente');
-    if (!idCliente) {
-      Alert.alert('Error', 'No se encontró el ID del cliente');
-      return;
-    }
+    const cargarDatos = async () => {
+      const idCliente = await AsyncStorage.getItem('idCliente');
+      if (!idCliente) {
+        Alert.alert('Error', 'No se encontró el ID del cliente');
+        return;
+      }
 
-    fetch(`http://192.168.50.135:6969/api/Client/${idCliente}`) // IP actualizada
-      .then(res => res.json())
-      .then(data => {
+      try {
+        const res = await fetch(`http://192.168.50.135:6969/api/Client/${idCliente}`);
+        const data = await res.json();
         setCuentas(data.accounts || []);
-        sessionStorage.setItem('clienteConPrestamos', JSON.stringify(data));
-      })
-      .catch(err => Alert.alert('Error', err.message));
+        await AsyncStorage.setItem('clienteConPrestamos', JSON.stringify(data));
+      } catch (err) {
+        Alert.alert('Error', err.message);
+      }
+    };
+
+    cargarDatos();
   }, []);
 
-  const handlePago = () => {
+  const handlePago = async () => {
     console.log("handlePago se está ejecutando");
 
-    const prestamoId = sessionStorage.getItem('prestamoASeleccionar');
-    const clienteRaw = sessionStorage.getItem('clienteConPrestamos');
+    const prestamoId = await AsyncStorage.getItem('prestamoASeleccionar');
+    const clienteRaw = await AsyncStorage.getItem('clienteConPrestamos');
     const cliente = clienteRaw ? JSON.parse(clienteRaw) : null;
 
     if (!prestamoId || !cuentaSeleccionada || !monto || !cliente) {
@@ -59,50 +65,45 @@ export default function PagoPrestamo() {
     cuenta.balance -= totalDescontar;
     prestamo.debt -= montoNum;
 
-    // Actualizar la cuenta en la base de datos
-    fetch(`http://192.168.50.135:6969/api/Account`, { // IP actualizada
-      method: 'POST', // O PUT si deseas actualizar
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        Id: cuenta.id,  // Suponiendo que la cuenta tiene un 'Id' para identificarla
-        Description: cuenta.description,
-        Balance: cuenta.balance,
-        Currency: cuenta.currency,
-        Number: cuenta.number,
-        Type: cuenta.type,
-        ClientId: cuenta.clientId,
-      }),
-    })
-    .then(res => res.json())
-    .then(updatedAccount => {
-      // Actualizar el préstamo en la base de datos
-      fetch(`http://192.168.50.135:6969/api/Loan`, { // IP actualizada
-        method: 'POST', // O PUT si deseas actualizar
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    try {
+      const resCuenta = await fetch(`http://192.168.50.135:6969/api/Account`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          Id: prestamo.id,  // Suponiendo que el préstamo tiene un 'Id'
+          Id: cuenta.id,
+          Description: cuenta.description,
+          Balance: cuenta.balance,
+          Currency: cuenta.currency,
+          Number: cuenta.number,
+          Type: cuenta.type,
+          ClientId: cuenta.clientId,
+        }),
+      });
+
+      const updatedAccount = await resCuenta.json();
+
+      const resPrestamo = await fetch(`http://192.168.50.135:6969/api/Loan`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          Id: prestamo.id,
           Total: prestamo.total,
           Debt: prestamo.debt,
           Tax: prestamo.tax,
           ClientId: prestamo.clientId,
         }),
-      })
-      .then(res => res.json())
-      .then(updatedLoan => {
-        // Guardar los cambios en sessionStorage
-        sessionStorage.setItem('cuentaPrestamo', cuenta.number);
-        sessionStorage.setItem('clienteConPrestamos', JSON.stringify(cliente));
+      });
 
-        Alert.alert('Pago exitoso', `Pago ${tipo} realizado por ₡${montoNum}`);
-        router.back();
-      })
-      .catch(err => Alert.alert('Error', 'No se pudo actualizar el préstamo: ' + err.message));
-    })
-    .catch(err => Alert.alert('Error', 'No se pudo actualizar la cuenta: ' + err.message));
+      const updatedLoan = await resPrestamo.json();
+
+      await AsyncStorage.setItem('cuentaPrestamo', cuenta.number);
+      await AsyncStorage.setItem('clienteConPrestamos', JSON.stringify(cliente));
+
+      Alert.alert('Pago exitoso', `Pago ${tipo} realizado por ₡${montoNum}`);
+      router.back();
+    } catch (err) {
+      Alert.alert('Error', 'No se pudo completar el pago: ' + err.message);
+    }
   };
 
   return (

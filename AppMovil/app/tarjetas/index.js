@@ -1,6 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Tarjetas() {
   const router = useRouter();
@@ -8,34 +9,32 @@ export default function Tarjetas() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchTarjetas = () => {
-    const numeroCuenta = sessionStorage.getItem('cuentaADebitar'); // Obtener número de cuenta desde sessionStorage
-    console.log(`El número de cuenta es: ${numeroCuenta}`);
+  const fetchTarjetas = async () => {
+    try {
+      const numeroCuenta = await AsyncStorage.getItem('cuentaADebitar'); // Obtener número de cuenta desde AsyncStorage
+      console.log(`El número de cuenta es: ${numeroCuenta}`);
 
-    if (!numeroCuenta) {
-      setError('No se ha encontrado un número de cuenta');
+      if (!numeroCuenta) {
+        setError('No se ha encontrado un número de cuenta');
+        setLoading(false);
+        return;
+      }
+
+      const url = `http://192.168.50.135:6969/api/Account/number/${numeroCuenta}`; // <--- IP actualizada
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de las tarjetas:", data);
+      setTarjetas(data.cards || []);
       setLoading(false);
-      return;
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
     }
-
-    const url = `http://192.168.50.135:6969/api/Account/number/${numeroCuenta}`; // <--- IP actualizada
-
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Respuesta de las tarjetas:", data);
-        setTarjetas(data.cards || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
   };
 
   useEffect(() => {
@@ -76,7 +75,7 @@ export default function Tarjetas() {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
-              sessionStorage.setItem('tarjetaSeleccionada', item.number);
+              AsyncStorage.setItem('tarjetaSeleccionada', item.number.toString()); // Guardar la tarjeta seleccionada
               router.push(`/tarjetas/pagos`);
             }}
             style={{

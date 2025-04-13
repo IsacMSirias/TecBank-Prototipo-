@@ -1,46 +1,47 @@
 import { useRouter } from 'expo-router';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login() {
   const router = useRouter();
   const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const url = "http://192.168.50.135:6969/api";  // ← IP de tu compu en vez de localhost
+  const url = "http://192.168.50.135:6969/api";  // IP local
 
-  const login = () => {
+  const login = async () => {
     const loginUrl = `${url}/Client?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
-    fetch(loginUrl, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(response => {
+    try {
+      const response = await fetch(loginUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
-      return response.json();
-    })
-    .then(data => {
+
+      const data = await response.json();
+
       if (!data.username || data.password !== password) {
         alert('Usuario o contraseña incorrectos');
       } else {
-        sessionStorage.setItem('idCliente', data.id);  // Guarda el idCliente en sessionStorage
+        await AsyncStorage.setItem('idCliente', String(data.id));  // Guarda el idCliente
         console.log(`El id guardado es: ${data.id}`);
         router.replace('/home');
       }
-    })
-    .catch(error => {
+    } catch (error) {
       console.error('Error en la solicitud:', error);
       alert('Usuario no encontrado.');
-    });
+    }
   };
 
   const handleLogin = () => {
     if (username && password) {
-      login();  
+      login();
     } else {
       alert('Por favor ingrese correo y contraseña');
     }

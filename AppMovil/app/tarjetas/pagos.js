@@ -1,6 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DetalleTarjeta() {
   const router = useRouter();
@@ -8,13 +9,13 @@ export default function DetalleTarjeta() {
 
   useEffect(() => {
     const fetchMovimientosTarjeta = async () => {
-      const tarjetaId = sessionStorage.getItem('tarjetaSeleccionada');
-      if (!tarjetaId) {
-        Alert.alert('Error', 'No se encontró la tarjeta seleccionada.');
-        return;
-      }
-
       try {
+        const tarjetaId = await AsyncStorage.getItem('tarjetaSeleccionada');
+        if (!tarjetaId) {
+          Alert.alert('Error', 'No se encontró la tarjeta seleccionada.');
+          return;
+        }
+
         const res = await fetch(`http://192.168.50.135:6969/api/Card/number/${tarjetaId}`); // <--- IP actualizada
         const data = await res.json();
 
