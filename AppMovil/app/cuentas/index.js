@@ -18,7 +18,7 @@ export default function Cuentas() {
       return;
     }
 
-    const url = `http://localhost:6969/api/Client/${idCliente}`;
+    const url = `http://192.168.50.135:6969/api/Client/${idCliente}`; // IP actualizada
 
     fetch(url)
       .then((response) => {

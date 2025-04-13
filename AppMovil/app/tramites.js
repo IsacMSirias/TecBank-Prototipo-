@@ -19,7 +19,7 @@ export default function Tramites() {
         }
 
         // Paso 1: Obtener cliente con sus cuentas
-        const resCliente = await fetch(`http://localhost:6969/api/Client/${idCliente}`);
+        const resCliente = await fetch(`http://192.168.50.135:6969/api/Client/${idCliente}`); // IP actualizada
         if (!resCliente.ok) {
           const error = await resCliente.json();
           Alert.alert('Error al obtener cliente', error.value || 'Error desconocido');
@@ -32,7 +32,7 @@ export default function Tramites() {
         // Paso 2: Obtener cada cuenta completa y sacar sus transacciones
         const cuentasConTransacciones = await Promise.all(
           cuentasCliente.map(async (cuenta) => {
-            const resCuenta = await fetch(`http://localhost:6969/api/Account/number/${cuenta.number}`);
+            const resCuenta = await fetch(`http://192.168.50.135:6969/api/Account/number/${cuenta.number}`); // IP actualizada
             if (!resCuenta.ok) return null;
 
             const cuentaCompleta = await resCuenta.json();
@@ -46,11 +46,11 @@ export default function Tramites() {
         // Paso 3: Obtener tarjetas con sus transacciones
         const tarjetasTotales = [];
         for (const cuenta of cuentasCliente) {
-          const resTarjetas = await fetch(`http://localhost:6969/api/Card/account/${cuenta.number}`);
+          const resTarjetas = await fetch(`http://192.168.50.135:6969/api/Card/account/${cuenta.number}`); // IP actualizada
           if (resTarjetas.ok) {
             const tarjetas = await resTarjetas.json();
             for (const tarjeta of tarjetas) {
-              const resTarjeta = await fetch(`http://localhost:6969/api/Card/number/${tarjeta.number}`);
+              const resTarjeta = await fetch(`http://192.168.50.135:6969/api/Card/number/${tarjeta.number}`); // IP actualizada
               if (!resTarjeta.ok) continue;
 
               const tarjetaCompleta = await resTarjeta.json();

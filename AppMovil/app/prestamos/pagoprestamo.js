@@ -17,7 +17,7 @@ export default function PagoPrestamo() {
       return;
     }
 
-    fetch(`http://localhost:6969/api/Client/${idCliente}`)
+    fetch(`http://192.168.50.135:6969/api/Client/${idCliente}`) // IP actualizada
       .then(res => res.json())
       .then(data => {
         setCuentas(data.accounts || []);
@@ -60,7 +60,7 @@ export default function PagoPrestamo() {
     prestamo.debt -= montoNum;
 
     // Actualizar la cuenta en la base de datos
-    fetch(`http://localhost:6969/api/Account`, {
+    fetch(`http://192.168.50.135:6969/api/Account`, { // IP actualizada
       method: 'POST', // O PUT si deseas actualizar
       headers: {
         'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export default function PagoPrestamo() {
     .then(res => res.json())
     .then(updatedAccount => {
       // Actualizar el préstamo en la base de datos
-      fetch(`http://localhost:6969/api/Loan`, {
+      fetch(`http://192.168.50.135:6969/api/Loan`, { // IP actualizada
         method: 'POST', // O PUT si deseas actualizar
         headers: {
           'Content-Type': 'application/json',

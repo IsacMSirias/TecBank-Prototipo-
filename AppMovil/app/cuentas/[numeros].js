@@ -15,7 +15,7 @@ export default function DetalleCuenta() {
       }
 
       try {
-        const res = await fetch(`http://localhost:6969/api/Account/number/${cuentaId}`);
+        const res = await fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaId}`); // IP actualizada
         const data = await res.json();
 
         if (!res.ok) {

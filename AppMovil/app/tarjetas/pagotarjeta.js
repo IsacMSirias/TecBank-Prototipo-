@@ -18,7 +18,7 @@ export default function PagoTarjeta() {
       return;
     }
 
-    fetch(`http://localhost:6969/api/Card/number/${numeroTarjeta}`)
+    fetch(`http://192.168.50.135:6969/api/Card/number/${numeroTarjeta}`) // IP actualizada
       .then((res) => {
         if (!res.ok) throw new Error('Error al obtener tarjeta');
         return res.json();
@@ -26,7 +26,7 @@ export default function PagoTarjeta() {
       .then(setTarjeta)
       .catch((err) => setError(err.message));
 
-    fetch(`http://localhost:6969/api/Account/number/${numeroCuenta}`)
+    fetch(`http://192.168.50.135:6969/api/Account/number/${numeroCuenta}`) // IP actualizada
       .then((res) => {
         if (!res.ok) throw new Error('Error al obtener cuenta');
         return res.json();
@@ -54,7 +54,7 @@ export default function PagoTarjeta() {
       const nuevoBalanceTarjeta = tarjeta.balance + montoNumerico;
 
       // Actualizar cuenta
-      await fetch(`http://localhost:6969/api/Account`, {
+      await fetch(`http://192.168.50.135:6969/api/Account`, { // IP actualizada
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -64,7 +64,7 @@ export default function PagoTarjeta() {
       });
 
       // Actualizar tarjeta
-      await fetch(`http://localhost:6969/api/Card`, {
+      await fetch(`http://192.168.50.135:6969/api/Card`, { // IP actualizada
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -74,7 +74,7 @@ export default function PagoTarjeta() {
       });
 
       // Crear transacción en cuenta (retiro)
-      await fetch(`http://localhost:6969/api/Transaction/account/${cuenta.id}`, {
+      await fetch(`http://192.168.50.135:6969/api/Transaction/account/${cuenta.id}`, { // IP actualizada
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -86,7 +86,7 @@ export default function PagoTarjeta() {
       });
 
       // Crear transacción en tarjeta (depósito)
-      await fetch(`http://localhost:6969/api/Transaction/card/${tarjeta.id}`, {
+      await fetch(`http://192.168.50.135:6969/api/Transaction/card/${tarjeta.id}`, { // IP actualizada
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

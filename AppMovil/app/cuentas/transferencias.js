@@ -17,8 +17,8 @@ export default function Transferencias() {
 
     try {
       const [resOrigen, resDestino] = await Promise.all([
-        fetch(`http://localhost:6969/api/Account/number/${cuentaOrigen}`),
-        fetch(`http://localhost:6969/api/Account/number/${cuentaDestino}`)
+        fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaOrigen}`), // IP actualizada
+        fetch(`http://192.168.50.135:6969/api/Account/number/${cuentaDestino}`)  // IP actualizada
       ]);
 
       if (!resOrigen.ok || !resDestino.ok) {
@@ -51,21 +51,21 @@ export default function Transferencias() {
       };
 
       // Actualizar cuenta origen
-      await fetch(`http://localhost:6969/api/Account`, {
+      await fetch(`http://192.168.50.135:6969/api/Account`, { // IP actualizada
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevaCuentaOrigen),
       });
 
       // Actualizar cuenta destino
-      await fetch(`http://localhost:6969/api/Account`, {
+      await fetch(`http://192.168.50.135:6969/api/Account`, { // IP actualizada
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevaCuentaDestino),
       });
 
       // Crear transacción para cuenta origen (retiro)
-      await fetch(`http://localhost:6969/api/Transaction/account/${dataOrigen.id}`, {
+      await fetch(`http://192.168.50.135:6969/api/Transaction/account/${dataOrigen.id}`, { // IP actualizada
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -76,7 +76,7 @@ export default function Transferencias() {
       });
 
       // Crear transacción para cuenta destino (depósito)
-      await fetch(`http://localhost:6969/api/Transaction/account/${dataDestino.id}`, {
+      await fetch(`http://192.168.50.135:6969/api/Transaction/account/${dataDestino.id}`, { // IP actualizada
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

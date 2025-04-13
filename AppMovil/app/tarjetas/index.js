@@ -18,7 +18,7 @@ export default function Tarjetas() {
       return;
     }
 
-    const url = `http://localhost:6969/api/Account/number/${numeroCuenta}`; // API para obtener las tarjetas asociadas a la cuenta
+    const url = `http://192.168.50.135:6969/api/Account/number/${numeroCuenta}`; // <--- IP actualizada
 
     fetch(url)
       .then((response) => {
@@ -29,7 +29,7 @@ export default function Tarjetas() {
       })
       .then((data) => {
         console.log("Respuesta de las tarjetas:", data);
-        setTarjetas(data.cards || []); // Se asume que la respuesta contiene un campo "tarjetas"
+        setTarjetas(data.cards || []);
         setLoading(false);
       })
       .catch((err) => {
@@ -72,12 +72,12 @@ export default function Tarjetas() {
 
       <FlatList
         data={tarjetas}
-        keyExtractor={(item) => item.number.toString()} // Usamos el número de tarjeta como clave
+        keyExtractor={(item) => item.number.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
-              sessionStorage.setItem('tarjetaSeleccionada', item.number); // Guardamos el número de tarjeta en sessionStorage
-              router.push(`/tarjetas/pagos`); // Navegamos al detalle de la tarjeta
+              sessionStorage.setItem('tarjetaSeleccionada', item.number);
+              router.push(`/tarjetas/pagos`);
             }}
             style={{
               backgroundColor: '#f4f4f4',
