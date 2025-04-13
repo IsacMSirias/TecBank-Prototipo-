@@ -80,19 +80,27 @@ function AccountOverview() {
           </thead>  
           <tbody>
             <tr>
-              <td className="--fixed-value">{id}</td>
-              <td><input className="--modifiable-value" type="text" placeholder={desc}/></td>
-              <td className="--fixed-value">{currency}</td>
-              <td><input className="--modifiable-value" type="number" placeholder={balance}/></td>
+              <td>{id}</td>
+              <td>{desc}</td>
+              <td>{currency}</td>
+              <td>{balance}</td>
+              <td>{type}</td>
+              <td>{clientId}</td>
+              <td>{clientName}</td>
+            </tr>
+            <tr>
+              <td>---</td>
+              <td><input className="--modifiable-value" type="text" placeholder="Nueva desc."/></td>
+              <td>---</td>
+              <td><input className="--modifiable-value" type="number" placeholder="Monto (+ / -)"/></td>
               <td><input className="--modifiable-value" type="text" placeholder={type}/></td>
               <td><input className="--modifiable-value" type="text" placeholder={clientId}/></td>
-              <td className="--fixed-value">{clientName}</td>
+              <td>---</td>
             </tr>
           </tbody>
         </table>
         </main>
         <main>
-        <button onClick={updateAccount}>Ver Movimientos</button>
         <button onClick={updateAccount}>Actualizar Datos</button>
         <button className="--dangerous" onClick={deleteAccount}>Borrar Cuenta</button>
       </main>   

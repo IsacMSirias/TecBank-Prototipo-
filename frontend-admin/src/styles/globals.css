@@ -101,10 +101,6 @@ input.--modifiable-value {
   border: 0px solid transparent;
 }
 
-input.--modifiable-value::placeholder {
-  color: var(--color-text);
-}
-
 button {
   font-size: 20px;
   font-weight: bold;
@@ -122,12 +118,12 @@ button:hover {
 }
 
 button.--dangerous {
-  background-color: red;
+  background-color: rgb(195, 0, 0);
   transition: all 0.3s;
 }
 
 button.--dangerous:hover {
-  padding: 10px;
+  background-color: red;
 }
 .button-group {
   gap: 20px; /* Agrega un poco más de espacio entre los botones */
