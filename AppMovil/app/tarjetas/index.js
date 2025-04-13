@@ -77,7 +77,7 @@ export default function Tarjetas() {
           <TouchableOpacity
             onPress={() => {
               sessionStorage.setItem('tarjetaSeleccionada', item.number); // Guardamos el número de tarjeta en sessionStorage
-              router.push(`/tarjetas/pagotarjeta`); // Navegamos al detalle de la tarjeta
+              router.push(`/tarjetas/pagos`); // Navegamos al detalle de la tarjeta
             }}
             style={{
               backgroundColor: '#f4f4f4',
