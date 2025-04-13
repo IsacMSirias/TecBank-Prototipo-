@@ -24,4 +24,5 @@
             public int ClientId { get; set; }
 
         public ICollection<Card> Cards { get; set; } = new List<Card>();
+        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     } }

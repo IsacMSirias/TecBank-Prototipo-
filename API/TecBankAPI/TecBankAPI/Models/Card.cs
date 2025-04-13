@@ -19,5 +19,6 @@ namespace TecBankAPI.Models
 
         // foreign key
         public int AccountId { get; set; }
+        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
 }
