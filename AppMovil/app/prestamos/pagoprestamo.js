@@ -12,7 +12,6 @@ export default function PagoPrestamo() {
 
   useEffect(() => {
     const idCliente = sessionStorage.getItem('idCliente');
-
     if (!idCliente) {
       Alert.alert('Error', 'No se encontró el ID del cliente');
       return;
@@ -22,21 +21,27 @@ export default function PagoPrestamo() {
       .then(res => res.json())
       .then(data => {
         setCuentas(data.accounts || []);
+        sessionStorage.setItem('clienteConPrestamos', JSON.stringify(data));
       })
       .catch(err => Alert.alert('Error', err.message));
   }, []);
 
   const handlePago = () => {
+    console.log("handlePago se está ejecutando");
+
     const prestamoId = sessionStorage.getItem('prestamoASeleccionar');
-    if (!prestamoId || !cuentaSeleccionada || !monto) {
+    const clienteRaw = sessionStorage.getItem('clienteConPrestamos');
+    const cliente = clienteRaw ? JSON.parse(clienteRaw) : null;
+
+    if (!prestamoId || !cuentaSeleccionada || !monto || !cliente) {
       Alert.alert('Error', 'Faltan datos para realizar el pago.');
       return;
     }
 
-    const prestamo = JSON.parse(sessionStorage.getItem('prestamos') || '[]').find(p => p.id == prestamoId);
     const cuenta = cuentas.find(c => c.number === cuentaSeleccionada);
+    const prestamo = cliente.loans?.find(p => p.id == prestamoId);
 
-    if (!prestamo || !cuenta) {
+    if (!cuenta || !prestamo) {
       Alert.alert('Error', 'No se encontró el préstamo o la cuenta.');
       return;
     }
@@ -50,19 +55,54 @@ export default function PagoPrestamo() {
       return;
     }
 
-    // Actualizamos cuenta y préstamo
+    // Aplicar el pago localmente
     cuenta.balance -= totalDescontar;
     prestamo.debt -= montoNum;
 
-    // Guardamos en sessionStorage
-    sessionStorage.setItem('cuentaPrestamo', cuenta.number);
-    const nuevosPrestamos = JSON.parse(sessionStorage.getItem('prestamos') || '[]').map(p =>
-      p.id == prestamo.id ? prestamo : p
-    );
-    sessionStorage.setItem('prestamos', JSON.stringify(nuevosPrestamos));
+    // Actualizar la cuenta en la base de datos
+    fetch(`http://localhost:6969/api/Account`, {
+      method: 'POST', // O PUT si deseas actualizar
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Id: cuenta.id,  // Suponiendo que la cuenta tiene un 'Id' para identificarla
+        Description: cuenta.description,
+        Balance: cuenta.balance,
+        Currency: cuenta.currency,
+        Number: cuenta.number,
+        Type: cuenta.type,
+        ClientId: cuenta.clientId,
+      }),
+    })
+    .then(res => res.json())
+    .then(updatedAccount => {
+      // Actualizar el préstamo en la base de datos
+      fetch(`http://localhost:6969/api/Loan`, {
+        method: 'POST', // O PUT si deseas actualizar
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Id: prestamo.id,  // Suponiendo que el préstamo tiene un 'Id'
+          Total: prestamo.total,
+          Debt: prestamo.debt,
+          Tax: prestamo.tax,
+          ClientId: prestamo.clientId,
+        }),
+      })
+      .then(res => res.json())
+      .then(updatedLoan => {
+        // Guardar los cambios en sessionStorage
+        sessionStorage.setItem('cuentaPrestamo', cuenta.number);
+        sessionStorage.setItem('clienteConPrestamos', JSON.stringify(cliente));
 
-    Alert.alert('Pago exitoso', `Pago ${tipo} realizado por ₡${montoNum}`);
-    router.back();
+        Alert.alert('Pago exitoso', `Pago ${tipo} realizado por ₡${montoNum}`);
+        router.back();
+      })
+      .catch(err => Alert.alert('Error', 'No se pudo actualizar el préstamo: ' + err.message));
+    })
+    .catch(err => Alert.alert('Error', 'No se pudo actualizar la cuenta: ' + err.message));
   };
 
   return (
