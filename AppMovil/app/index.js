@@ -6,7 +6,7 @@ export default function Login() {
   const router = useRouter();
   const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const url = "http://localhost:6969/api";
+  const url = "http://192.168.50.135:6969/api";  // ← IP de tu compu en vez de localhost
 
   const login = () => {
     const loginUrl = `${url}/Client?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
@@ -24,13 +24,11 @@ export default function Login() {
       return response.json();
     })
     .then(data => {
-
       if (!data.username || data.password !== password) {
         alert('Usuario o contraseña incorrectos');
       } else {
-        // Guardar idCliente en sessionStorage
         sessionStorage.setItem('idCliente', data.id);  // Guarda el idCliente en sessionStorage
-        console.log(`El id guardado es: ${data.id}`);  // Imprime el id guardado
+        console.log(`El id guardado es: ${data.id}`);
         router.replace('/home');
       }
     })
@@ -67,16 +65,12 @@ export default function Login() {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        onSubmitEditing={() => {
-          handleLogin();
-        }}
+        onSubmitEditing={handleLogin}
         style={{ borderWidth: 1, padding: 10, borderRadius: 10 }}
       />
 
       <TouchableOpacity
-        onPress={() => {
-          handleLogin();
-        }}
+        onPress={handleLogin}
         style={{
           backgroundColor: '#1565C0',
           padding: 14,

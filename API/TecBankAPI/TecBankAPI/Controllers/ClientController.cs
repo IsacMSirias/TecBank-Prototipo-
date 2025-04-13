@@ -89,7 +89,8 @@ namespace TecBankAPI.Controllers
         }
 
         // GetAll
-        [HttpGet("/GetAll")]
+        [HttpGet("GetAll")]
+
         public JsonResult GetAll()
         {
             var result = _context.getDataFromFile<Client>();
