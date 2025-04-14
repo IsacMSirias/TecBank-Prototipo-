@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { jsPDF } from "jspdf";
 
 function Moras() {
   const location = useLocation();
@@ -18,8 +19,9 @@ function Moras() {
       return;
     }
 
-    // TODO: Llamar al endpoint para generar el PDF
-    console.log(`Generar PDF para las moras del préstamo: ${loanNumber}`);
+    const doc = new jsPDF();
+    doc.text("Moras del préstamo: " + loanNumber, 10, 10);
+    doc.save("moras.pdf");
   };
 
   return (
