@@ -43,7 +43,7 @@ function Clients() {
 
   const handleCreate = async () => {
     try {
-      await fetch(API_URL, {
+      await fetch(`${API_URL}/api/Client`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newClient),

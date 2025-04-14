@@ -58,7 +58,7 @@ function Accounts() {
     if (!clientIdSearch) return alert("Por favor ingrese una cédula");
 
     try {
-      const res = await fetch(`${API_URL}/api/Client/${clientIdSearch}`);
+      const res = await fetch(`${API}/api/Client/${clientIdSearch}`);
       if (!res.ok) throw new Error("Cliente no encontrado");
 
       const client = await res.json();

@@ -32,9 +32,6 @@ function Home() {
       <h1>Registrado como: {username}</h1>
       <main>
         <h1>Página de inicio</h1>
-        <button onClick={(e) => goTo(e, navigate, "/roles", username)}>
-          Gestionar Roles
-        </button>
         <button onClick={(e) => goTo(e, navigate, "/clientes", username)}>
           Gestionar Clientes
         </button>

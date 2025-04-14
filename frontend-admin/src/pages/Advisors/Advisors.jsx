@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import {API_URL} from "../../utils";
+import { API_URL } from "../../utils";
 
 function Advisors() {
   const [advisors, setAdvisors] = useState([]);
@@ -15,6 +14,7 @@ function Advisors() {
     salesTargetColones: "",
     salesTargetDollars: ""
   });
+  const [searchIdNumber, setSearchIdNumber] = useState("");
 
   const [editing, setEditing] = useState(null);
   const [showNewModal, setShowNewModal] = useState(false);
@@ -28,6 +28,27 @@ function Advisors() {
     const res = await fetch(`${API_URL}/api/Advisor`);
     const data = await res.json();
     setAdvisors(data);
+  };
+
+  const searchAdvisorById = async () => {
+    if (!searchIdNumber) return alert("Ingrese un número de cédula para buscar.");
+
+    try {
+      const res = await fetch(`${API_URL}/api/Advisor/${searchIdNumber}`);
+      if (!res.ok) {
+        if (res.status === 404) {
+          alert("No se encontró un asesor con esa cédula.");
+        } else {
+          alert("Error al buscar el asesor.");
+        }
+        return;
+      }
+
+      const advisor = await res.json();
+      setAdvisors([advisor]);
+    } catch (err) {
+      alert("Error en la búsqueda: " + err.message);
+    }
   };
 
   const handleCreate = async () => {
@@ -87,6 +108,18 @@ function Advisors() {
     <div className="standard-wrapper">
       <main>
         <h1>Gestión de Asesores de Crédito</h1>
+
+        {/* Buscador por cédula */}
+        <span>
+          <input
+            type="text"
+            placeholder="Buscar por cédula"
+            value={searchIdNumber}
+            onChange={(e) => setSearchIdNumber(e.target.value)}
+          />
+          <button onClick={searchAdvisorById}>Buscar</button>
+          <button onClick={fetchAdvisors}>Mostrar todos</button>
+        </span>
 
         <button onClick={() => setShowNewModal(true)}>Agregar Asesor</button>
 
