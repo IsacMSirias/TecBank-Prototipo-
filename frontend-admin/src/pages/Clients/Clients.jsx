@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_URL } from "../../utils";
 
 function Clients() {
   const location = useLocation();
@@ -21,7 +22,6 @@ function Clients() {
   const [editingClient, setEditingClient] = useState(null);
   const [showNewModal, setShowNewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const API_URL = "http://192.168.50.135:6969/api/Client";
 
   useEffect(() => {
     if (location.state?.username) {
@@ -32,7 +32,7 @@ function Clients() {
 
   const fetchClients = async () => {
     try {
-      const res = await fetch(`${API_URL}/GetAll`);
+      const res = await fetch(`${API_URL}/api/Client/GetAll`);
 
       const data = await res.json();
       setClients(data.value);
@@ -90,7 +90,7 @@ function Clients() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`${API_URL}?id=${id}`, { method: "DELETE" });
+      await fetch(`${API_URL}/api/Client?id=${id}`, { method: "DELETE" });
       fetchClients();
     } catch (err) {
       console.error("Error al eliminar cliente:", err);

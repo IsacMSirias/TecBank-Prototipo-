@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { goTo } from "../../utils";
+import { API_URL } from "../../utils";
 
 function Accounts() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Accounts() {
     if (!numberSearch) return alert("Por favor ingrese un número de cuenta");
 
     try {
-      const res = await fetch(`http://192.168.50.135:6969/api/Account/number/${numberSearch}`);
+      const res = await fetch(`${API_URL}/api/Account/number/${numberSearch}`);
       if (!res.ok) throw new Error("Cuenta no encontrada");
 
       const text = await res.text();
@@ -30,7 +31,7 @@ function Accounts() {
       const account = JSON.parse(text);
 
       // Obtener cliente
-      const clientRes = await fetch(`http://192.168.50.135:6969/api/Client/${account.clientId}`);
+      const clientRes = await fetch(`${API_URL}/api/Client/${account.clientId}`);
       const clientText = await clientRes.text();
       if (!clientText) throw new Error("Cliente no encontrado o sin respuesta");
 
@@ -57,7 +58,7 @@ function Accounts() {
     if (!clientIdSearch) return alert("Por favor ingrese una cédula");
 
     try {
-      const res = await fetch(`http://192.168.50.135:6969/api/Client/${clientIdSearch}`);
+      const res = await fetch(`${API_URL}/api/Client/${clientIdSearch}`);
       if (!res.ok) throw new Error("Cliente no encontrado");
 
       const client = await res.json();

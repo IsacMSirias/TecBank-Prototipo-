@@ -1,13 +1,14 @@
 // React
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils";
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const url = "http://192.168.50.135:6969/api";
+  const url = `${API_URL}/api`;
 
   const login = () => {
     const loginUrl = `${url}/Client?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;

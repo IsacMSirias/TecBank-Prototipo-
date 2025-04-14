@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 // Components
+import { API_URL } from "../../utils";
 
 function AccountOverview() {
   const location = useLocation();
@@ -60,7 +61,7 @@ function AccountOverview() {
     };
 
     try {
-      const response = await fetch(`http://192.168.50.135:6969/api/Account`, {
+      const response = await fetch(`${API_URL}/api/Account`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedAccount),
@@ -81,7 +82,7 @@ function AccountOverview() {
   const deleteAccount = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://192.168.50.135:6969/api/Account/?id=${id}`, {
+      const response = await fetch(`${API_URL}/api/Account/?id=${id}`, {
         method: "DELETE",
       });
 

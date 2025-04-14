@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { updateValue } from "../../utils";
 
+import { API_URL } from "../../utils";
+
 function AccountCreation() {
   const [accountClientId, setAccountClientId] = useState('');
   const [accountDesc, setAccountDesc] = useState('');
@@ -32,7 +34,7 @@ function AccountCreation() {
       };
 
       try {
-        const response = await fetch("http://192.168.50.135:6969/api/Account", {
+        const response = await fetch(`${API_URL}/api/Account`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newAccount),

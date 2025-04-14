@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-const API_URL = "http://192.168.50.135:6969/api/Loan";
+import { API_URL } from "../../utils";
 
 function Loans() {
   const [loans, setLoans] = useState([]);
@@ -30,7 +29,7 @@ function Loans() {
   const searchByLoanId = () => {
     if (!loanIdSearch) return alert("Por favor ingrese un ID de préstamo");
 
-    axios.get(`${API_URL}/${loanIdSearch}`)
+    axios.get(`${API_URL}/api/Loan/${loanIdSearch}`)
       .then(res => setLoans([res.data]))
       .catch(err => {
         alert("No se encontró el préstamo.");
@@ -42,7 +41,7 @@ function Loans() {
   const searchByClientId = () => {
     if (!clientIdSearch) return alert("Por favor ingrese un ID de cliente");
 
-    axios.get(`${API_URL}?clientId=${clientIdSearch}`)
+    axios.get(`${API_URL}/api/Loan?clientId=${clientIdSearch}`)
       .then(res => setLoans(res.data))
       .catch(err => {
         alert("No se encontraron préstamos para este cliente.");
@@ -88,7 +87,7 @@ function Loans() {
 
   // Eliminar un préstamo
   const handleDelete = (id) => {
-    axios.delete(`${API_URL}/${id}`)
+    axios.delete(`${API_URL}/api/Loan/${id}`)
       .then(() => setLoans(loans.filter(l => l.id !== id)))
       .catch(err => console.error(err));
   };

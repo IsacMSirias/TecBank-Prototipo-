@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {API_URL} from "../../utils";
 
 function Cards() {
   const location = useLocation();
@@ -36,7 +37,7 @@ function Cards() {
     if (!numberSearch) return alert("Por favor ingrese un número de tarjeta");
 
     try {
-      const res = await axios.get(`http://192.168.50.135:6969/api/Card/number/${numberSearch}`);
+      const res = await axios.get(`${API_URL}/api/Card/number/${numberSearch}`);
       const card = res.data;
 
       setCards([card]);
@@ -52,7 +53,7 @@ function Cards() {
     if (!accountNumberSearch) return alert("Por favor ingrese un número de cuenta");
 
     try {
-      const res = await axios.get(`http://192.168.50.135:6969/api/Account/number/${accountNumberSearch}`);
+      const res = await axios.get(`${API_URL}/api/Account/number/${accountNumberSearch}`);
       const account = res.data;
 
       if (!account.cards || account.cards.length === 0) {
@@ -79,7 +80,7 @@ function Cards() {
         Type: newCard.type,
         AccountId: parseInt(newCard.accountId),
       };
-      await axios.post("http://192.168.50.135:6969/api/Card", payload);
+      await axios.post(`${API_URL}/api/Card`, payload);
       setShowNewModal(false);
       setNewCard({
         number: "",
@@ -98,7 +99,7 @@ function Cards() {
   // Función para eliminar una tarjeta
   const handleDelete = async (cardId) => {
     try {
-      await axios.delete(`http://192.168.50.135:6969/api/Card?id=${cardId}`);
+      await axios.delete(`${API_URL}/api/Card?id=${cardId}`);
       setCards((prev) => prev.filter((c) => (c.id || c.Id) !== cardId));
     } catch (err) {
       console.error("Error eliminando tarjeta:", err);
@@ -131,7 +132,7 @@ function Cards() {
         Type: editingCard.type,
         AccountId: parseInt(editingCard.accountId),
       };
-      await axios.post("http://192.168.50.135:6969/api/Card", payload);
+      await axios.post(`${API_URL}/api/Card`, payload);
       setShowEditModal(false);
       setEditingCard(null);
       // Refresh

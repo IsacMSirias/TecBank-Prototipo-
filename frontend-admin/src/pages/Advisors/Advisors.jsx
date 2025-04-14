@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import {API_URL} from "../../utils";
+
 function Advisors() {
   const [advisors, setAdvisors] = useState([]);
   const [newAdvisor, setNewAdvisor] = useState({
@@ -18,20 +20,18 @@ function Advisors() {
   const [showNewModal, setShowNewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const API_URL = "http://192.168.50.135:6969/api/Advisor";
-
   useEffect(() => {
     fetchAdvisors();
   }, []);
 
   const fetchAdvisors = async () => {
-    const res = await fetch(API_URL);
+    const res = await fetch(`${API_URL}/api/Advisor`);
     const data = await res.json();
     setAdvisors(data);
   };
 
   const handleCreate = async () => {
-    await fetch(API_URL, {
+    await fetch(`${API_URL}/api/Advisor`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -57,7 +57,7 @@ function Advisors() {
   };
 
   const handleDelete = async (idNumber) => {
-    await fetch(`${API_URL}/${idNumber}`, {
+    await fetch(`${API_URL}/api/Advisor/${idNumber}`, {
       method: "DELETE"
     });
     fetchAdvisors();
@@ -69,7 +69,7 @@ function Advisors() {
   };
 
   const handleUpdate = async () => {
-    await fetch(API_URL, {
+    await fetch(`${API_URL}/api/Advisor`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
