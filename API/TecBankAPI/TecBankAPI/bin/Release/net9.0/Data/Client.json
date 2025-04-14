@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "ClientType": "feq",
+    "MonthlyIncome": 100000,
+    "FirstName": "pepe",
+    "MiddleName": "pecas",
+    "LastName": "pica",
+    "SecondLastName": "papas",
+    "Phone": "1651-1651",
+    "Username": "ferba",
+    "Password": "1234",
+    "Address": "palmares",
+    "State": true,
+    "Accounts": [
+      {
+        "Id": 3,
+        "Description": "hola",
+        "Balance": 1000000,
+        "Currency": "eur",
+        "Number": "92834",
+        "Type": "ahorro",
+        "ClientId": 1,
+        "Cards": []
+      },
+      {
+        "Id": 4,
+        "Description": "addios",
+        "Balance": 1000,
+        "Currency": "crc",
+        "Number": "2555",
+        "Type": "inversion",
+        "ClientId": 1,
+        "Cards": []
+      }
+    ],
+    "Loans": [
+      {
+        "Id": 1,
+        "Total": 500000,
+        "Debt": 50000,
+        "Tax": 10.5,
+        "ClientId": 1
+      }
+    ]
+  }
+]

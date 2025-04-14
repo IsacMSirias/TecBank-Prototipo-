@@ -1,0 +1,29 @@
+[
+  {
+    "Id": 1,
+    "CCV": 499,
+    "Balance": 15000,
+    "DueDate": "8-26",
+    "Number": "1235",
+    "Type": "credit",
+    "AccountId": 1
+  },
+  {
+    "Id": 2,
+    "CCV": 499,
+    "Balance": 5000,
+    "DueDate": "8-24",
+    "Number": "516489",
+    "Type": "debir",
+    "AccountId": 1
+  },
+  {
+    "Id": 3,
+    "CCV": 499,
+    "Balance": 5000,
+    "DueDate": "8-24",
+    "Number": "516489",
+    "Type": "debir",
+    "AccountId": 3
+  }
+]
