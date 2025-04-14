@@ -91,6 +91,18 @@ export default function Tarjetas() {
           </TouchableOpacity>
         )}
       />
+      <TouchableOpacity
+        onPress={() => router.replace('/home')}
+        style={{
+         marginTop: 30,
+         backgroundColor: '#1565C0',
+         padding: 16,
+          borderRadius: 10,
+          alignItems: 'center',
+      }}
+      >
+        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>Volver a inicio</Text>
+      </TouchableOpacity>
     </View>
   );
 }

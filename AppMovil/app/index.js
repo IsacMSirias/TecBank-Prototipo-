@@ -7,7 +7,7 @@ export default function Login() {
   const router = useRouter();
   const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const url = "http://192.168.50.135:6969/api";  // IP local
+  const url = "http://10.10.10.30:6969/api";  // IP local
 
   const login = async () => {
     const loginUrl = `${url}/Client?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
