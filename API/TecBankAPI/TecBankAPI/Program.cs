@@ -40,6 +40,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Permitir que el backend escuche desde cualquier IP (en tu red local)
-app.Urls.Add("http://0.0.0.0:6969");
+//app.Urls.Add("http://0.0.0.0:6969");
 
 app.Run();

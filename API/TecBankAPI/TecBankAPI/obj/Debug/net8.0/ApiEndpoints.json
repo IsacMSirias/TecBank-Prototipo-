@@ -48,6 +48,64 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TecBankAPI.Controllers.AdvisorController",
+    "Method": "GetAll",
+    "RelativePath": "api/Advisor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.AdvisorController",
+    "Method": "CreateOrUpdate",
+    "RelativePath": "api/Advisor",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "advisor",
+        "Type": "TecBankAPI.Models.Advisor",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.AdvisorController",
+    "Method": "GetById",
+    "RelativePath": "api/Advisor/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.AdvisorController",
+    "Method": "Delete",
+    "RelativePath": "api/Advisor/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TecBankAPI.Controllers.CardController",
     "Method": "CreateEdit",
     "RelativePath": "api/Card",
@@ -176,6 +234,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TecBankAPI.Controllers.ClientController",
+    "Method": "GetAll",
+    "RelativePath": "api/Client/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TecBankAPI.Controllers.LoanController",
     "Method": "CreateOrEdit",
     "RelativePath": "api/Loan",
@@ -250,13 +318,93 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TecBankAPI.Controllers.ClientController",
-    "Method": "GetAll",
-    "RelativePath": "GetAll",
+    "ContainingType": "TecBankAPI.Controllers.TransactionController",
+    "Method": "CreateTransactionForAccount",
+    "RelativePath": "api/Transaction/account/{accountId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "accountId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "transaction",
+        "Type": "TecBankAPI.Models.Transaction",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.TransactionController",
+    "Method": "GetTransactionsForAccount",
+    "RelativePath": "api/Transaction/account/{accountId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "accountId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.TransactionController",
+    "Method": "CreateTransactionForCard",
+    "RelativePath": "api/Transaction/card/{cardId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cardId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "transaction",
+        "Type": "TecBankAPI.Models.Transaction",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.TransactionController",
+    "Method": "GetTransactionsForCard",
+    "RelativePath": "api/Transaction/card/{cardId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cardId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TecBankAPI.Controllers.TransactionController",
+    "Method": "GetTransactionById",
+    "RelativePath": "api/Transaction/id/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]
