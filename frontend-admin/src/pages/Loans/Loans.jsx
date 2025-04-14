@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:6969/api/Loan";
+const API_URL = "http://192.168.50.135:6969/api/Loan";
 
 function Loans() {
   const [loans, setLoans] = useState([]);
@@ -15,12 +15,40 @@ function Loans() {
   const [showNewModal, setShowNewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
+  // Variables de búsqueda
+  const [loanIdSearch, setLoanIdSearch] = useState("");
+  const [clientIdSearch, setClientIdSearch] = useState("");
+
   // Cargar los préstamos cuando se monta el componente
   useEffect(() => {
     axios.get(API_URL)
       .then(res => setLoans(res.data))
       .catch(err => console.error(err));
   }, []);
+
+  // Función para buscar por ID de préstamo
+  const searchByLoanId = () => {
+    if (!loanIdSearch) return alert("Por favor ingrese un ID de préstamo");
+
+    axios.get(`${API_URL}/${loanIdSearch}`)
+      .then(res => setLoans([res.data]))
+      .catch(err => {
+        alert("No se encontró el préstamo.");
+        setLoans([]);
+      });
+  };
+
+  // Función para buscar por ID de cliente
+  const searchByClientId = () => {
+    if (!clientIdSearch) return alert("Por favor ingrese un ID de cliente");
+
+    axios.get(`${API_URL}?clientId=${clientIdSearch}`)
+      .then(res => setLoans(res.data))
+      .catch(err => {
+        alert("No se encontraron préstamos para este cliente.");
+        setLoans([]);
+      });
+  };
 
   // Crear un nuevo préstamo
   const handleCreate = () => {
@@ -77,6 +105,29 @@ function Loans() {
         <h1>Gestión de Préstamos</h1>
 
         <button onClick={() => setShowNewModal(true)}>Nuevo Préstamo</button>
+
+        {/* Barras de búsqueda */}
+        <h3>Búsqueda por ID de préstamo</h3>
+        <span>
+          <input
+            type="text"
+            placeholder="ID de Préstamo"
+            value={loanIdSearch}
+            onChange={(e) => setLoanIdSearch(e.target.value)}
+          />
+          <button onClick={searchByLoanId}>Buscar</button>
+        </span>
+
+        <h3>Búsqueda por ID de cliente</h3>
+        <span>
+          <input
+            type="text"
+            placeholder="ID de Cliente"
+            value={clientIdSearch}
+            onChange={(e) => setClientIdSearch(e.target.value)}
+          />
+          <button onClick={searchByClientId}>Buscar</button>
+        </span>
 
         <table>
           <thead>

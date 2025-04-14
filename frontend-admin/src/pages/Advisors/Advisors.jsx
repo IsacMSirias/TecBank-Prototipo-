@@ -18,7 +18,7 @@ function Advisors() {
   const [showNewModal, setShowNewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const API_URL = "http://localhost:6969/api/advisor";
+  const API_URL = "http://192.168.50.135:6969/api/Advisor";
 
   useEffect(() => {
     fetchAdvisors();

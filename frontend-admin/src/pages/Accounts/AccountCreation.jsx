@@ -32,7 +32,7 @@ function AccountCreation() {
       };
 
       try {
-        const response = await fetch("http://localhost:6969/api/accounts/new", {
+        const response = await fetch("http://192.168.50.135:6969/api/Account", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newAccount),

@@ -7,7 +7,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const url = "http://localhost:6969/api";
+  const url = "http://192.168.50.135:6969/api";
 
   const login = () => {
     const loginUrl = `${url}/Client?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;

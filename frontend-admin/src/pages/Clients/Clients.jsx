@@ -21,7 +21,7 @@ function Clients() {
   const [editingClient, setEditingClient] = useState(null);
   const [showNewModal, setShowNewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const API_URL = "http://localhost:6969/api/Client";
+  const API_URL = "http://192.168.50.135:6969/api/Client";
 
   useEffect(() => {
     if (location.state?.username) {
@@ -32,7 +32,8 @@ function Clients() {
 
   const fetchClients = async () => {
     try {
-      const res = await fetch("/GetAll");
+      const res = await fetch(`${API_URL}/GetAll`);
+
       const data = await res.json();
       setClients(data.value);
     } catch (error) {

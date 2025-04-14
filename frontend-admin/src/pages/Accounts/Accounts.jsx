@@ -21,14 +21,20 @@ function Accounts() {
     if (!numberSearch) return alert("Por favor ingrese un número de cuenta");
 
     try {
-      const res = await fetch(`http://localhost:6969/api/account/number/${numberSearch}`);
+      const res = await fetch(`http://192.168.50.135:6969/api/Account/number/${numberSearch}`);
       if (!res.ok) throw new Error("Cuenta no encontrada");
 
-      const account = await res.json();
+      const text = await res.text();
+      if (!text) throw new Error("Respuesta vacía del servidor");
+
+      const account = JSON.parse(text);
 
       // Obtener cliente
-      const clientRes = await fetch(`http://localhost:6969/api/clients/${account.clientId}`);
-      const client = await clientRes.json();
+      const clientRes = await fetch(`http://192.168.50.135:6969/api/Client/${account.clientId}`);
+      const clientText = await clientRes.text();
+      if (!clientText) throw new Error("Cliente no encontrado o sin respuesta");
+
+      const client = JSON.parse(clientText);
 
       setAccounts([
         {
@@ -51,7 +57,7 @@ function Accounts() {
     if (!clientIdSearch) return alert("Por favor ingrese una cédula");
 
     try {
-      const res = await fetch(`http://localhost:6969/api/clients/${clientIdSearch}`);
+      const res = await fetch(`http://192.168.50.135:6969/api/Client/${clientIdSearch}`);
       if (!res.ok) throw new Error("Cliente no encontrado");
 
       const client = await res.json();
